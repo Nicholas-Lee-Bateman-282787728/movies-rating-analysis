@@ -1,0 +1,268 @@
+/***************************************/
+/* Mobile First */
+/***************************************/
+/* Panels in main body */
+.main-panel {
+    background-color: #171717;;
+    margin-bottom: 30px;
+}
+.panel-header {
+    height: 60px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.panel-header:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+div.panel-title {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: #fdd504;
+    color: #171717;
+    line-height: 60px;
+    float: left;
+    margin-right: 5%;
+    width: 100%;
+}
+
+/* Movies list */
+.panel-body {
+    padding: 20px 30px;
+    width: 100%;
+    display: table;
+}
+.item-box {
+    display: block;
+    max-width: 100%;
+    height: 220px;
+    padding: 10% 2%;
+    text-align: center;
+    position: relative;
+}
+.item-box img:hover {
+    border: 5px solid #fdd504;
+    border-radius: 2%;
+}
+.item-box img {
+    height: 90%;
+    display: inline-block;
+    /* margin-bottom: 10px; */
+    border: 5px solid #fff;
+    border-radius: 2%;
+}
+.item-title-en {
+    padding: 3px 5px;
+    text-align: justify;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.2em;
+    display: none;
+}
+h4.item-title-vn {
+    color: #ebebeb;    
+    font-size: 1.0em;
+    font-weight: normal;
+    display: block;
+    text-align: center;
+}
+/***************************************/
+/* End Mobile First */
+/***************************************/
+
+
+/***************************************/
+/* Responsive */
+/***************************************/
+/* For viewport >= 640px */
+@media screen and (min-width: 640px) {
+    /* Format for panels in main body*/
+    div.panel-title {
+        width: 40%;
+        font-size: 0.8em;
+    }
+
+    /*Create right triangle*/
+    div.panel-title:before {
+        display: inline-block;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        height: 0; width: 0;
+        content: "";
+        border: 30px solid transparent;
+        border-left-color: #fdd504;
+    }
+    
+    /*Format for product list*/
+    .panel-body {
+        display: inline-block;
+    }
+
+    .item-box {
+        display: inline-block;
+        max-width: 50%;
+        padding: 5px;
+    }
+
+    .item-box img {
+        width: 210px;
+        height: 315px;
+        margin-top: 10%;
+        margin-bottom: 5%;
+    }
+
+    .item-title-en {
+        text-align: center;
+        font-size: 1.2em;
+        display: block;
+    }
+
+    h4.item-title-vn {
+        color: #ebebeb;    
+        font-size: 1.0em;
+        font-weight: normal;
+        display: block;
+        text-align: center;
+    }
+}
+
+
+/*For viewport >= 1024px */
+@media screen and (min-width: 1024px) {
+    /*Format for panel products in main body*/
+    #main-body-wrapper {
+        width: 100%;
+    }
+
+    div.panel-title {
+        margin-left: 5%;
+        width: 20%;
+    }
+
+    /*Create right triangle*/
+    div.panel-title:before {
+        display: inline-block;
+        position: absolute;
+        left: 100%;
+        top: 0;
+        height: 0; width: 0;
+        content: "";
+        /*border-width needs to be as half of panel-header*/
+        border: 30px solid transparent;
+        border-left-color: #fdd504;
+    }
+
+    /*Format for product list*/
+    .panel-body {
+        display: table;
+    }
+
+    .item-box {
+        display: table-cell;
+    }
+
+    .item-box img {
+        margin-top: 2%;
+        margin-bottom: 10px;
+    }
+
+    .item-title-en {
+        padding: 3px 5px;
+        text-align: justify;
+        color: #fff;
+        font-weight: bold;
+        font-size: 1.2em;
+        display: inline-block;
+    }
+
+    h4.item-title-vn {
+        color: #ebebeb;    
+        font-size: 1.0em;
+        font-weight: normal;
+        display: block;
+        text-align: center;
+    }
+}
+
+
+/*For viewport >= 1366px */
+@media screen and (min-width: 1366px) {
+    /* Format panels */
+    div.panel-title {
+        font-size: 1.1em;
+        width: 20%;
+    }
+
+    /* Format for product list */
+    .panel-body {
+        padding: 2% 5%;
+    }
+}
+/***************************************/
+/* End Responsive */
+/***************************************/
+
+
+
+/********************************************/
+/* Carsourel with animation */
+/********************************************/
+#carsourel {
+    margin-bottom: 30px;
+    width: 100%;
+    height: 400px;
+    position: relative;
+}
+
+#carsourel img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    animation-name: carsourel;
+    animation-duration: 12s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes carsourel {
+    0% {
+        opacity: 1;
+    }
+    17% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0;
+    }
+    92% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#carsourel img:nth-of-type(1) {
+    animation-delay: 9s;
+}
+
+#carsourel img:nth-of-type(2) {
+    animation-delay: 6s;
+}
+
+#carsourel img:nth-of-type(3) {
+    animation-delay: 3s;
+}
+
+#carsourel img:nth-of-type(4) {
+    animation-delay: 0s;
+}
+/********************************************/
+/* End carousel */
+/********************************************/

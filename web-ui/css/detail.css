@@ -1,0 +1,254 @@
+/***************************************/
+/* Mobile First */
+/***************************************/
+/* Left Column */
+.item-box img {
+    height: 280px;
+    display: inline-block;
+    margin-bottom: 10px;
+    border: 5px solid #fff;
+    border-radius: 2%;
+}
+
+#left_col {
+    width: 100%;
+    display: block;
+    text-align: center
+}
+
+/* Right column */
+#right_col {
+    padding-top: 30%;
+}
+
+#main-info {
+    text-align: center;
+}
+
+#main-info {
+    padding: 0% 0% 8% 0%;
+}
+
+h1.title {
+    padding: 4% 0%;
+    font-weight: bold;
+    font-size: 1.5em;
+    display: block;
+}
+
+h2.year {
+    padding: 0% 0%;
+    font-size: 1.2em;
+    display: block;
+}
+
+h3.category {
+    padding: 1% 0%;
+    font-size: 1.0em;
+    display: block;
+}
+
+#description {
+    padding-bottom: 5%;
+}
+
+#description > h1 {
+    padding: 1% 0%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+    display: block;
+}
+
+#watch-buttons {
+    text-align: center;
+}
+
+.buttons-group > button {
+    text-align: center;
+    margin: 3% 3%;
+    width: 50%;
+    height: 50px;
+    border: none;
+    background-color: #fdd504;
+    font-size: 1.2em;
+    color: #171717;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/***************************************/
+/* End mobile First */
+/***************************************/
+
+/***************************************/
+/* Responsive */
+/***************************************/
+/* For viewport >= 640px */
+@media screen and (min-width: 640px) {
+    /* Right column */
+    #right_col {
+        padding-top: 0%;
+    }
+
+    h1.title {
+        font-size: 2.0em;
+    }
+
+    h2.year {
+        font-size: 1.5em;
+    }
+
+    h3.category {
+        font-size: 1.2em;
+    }
+
+    #description > h1 {
+        font-size: 1.8em;
+    }
+
+    .buttons-group > button {
+        width: 25%;
+        border-radius: 10px;
+    }
+}
+
+/*For viewport >= 1024px */
+@media screen and (min-width: 1024px) {
+    #left_col {
+        width: 28%;
+        float: left;
+    }
+
+    #right_col {
+        width: 60%;
+        float: right;
+        display: block;
+    }
+
+    #main-info {
+        text-align: justify;
+        padding: 8% 0 8% 0;
+    }
+
+    #description > h1 {
+        text-align: justify;
+        font-size: 1.8em;
+    }
+
+    #watch-buttons {
+        text-align: justify;
+        font-size: 1.2em;
+    }
+
+    .buttons-group {
+        text-align: center
+    }
+
+    .buttons-group > button {
+        width: 30%;
+        font-size: 1.0em;
+    }
+}
+
+/*For viewport >= 1366px */
+@media screen and (min-width: 1365px) {
+    .item-box img {
+        margin: 15% 0% 8% 0%;
+        width: 320px;
+        height: 480px;
+        display: inline-block;
+        margin-bottom: 10px;
+        border: 5px solid #fff;
+        border-radius: 2%;
+    }
+
+    #main-info {
+        text-align: justify;
+        padding: 2% 0 5% 0;
+    }
+
+    h1.title {
+        font-size: 2.5em;
+    }
+
+    h2.year {
+        padding: 1% 0%;
+        font-size: 1.5em;
+    }
+
+    h3.category {
+        padding: 1% 0%;
+        font-size: 1.0em;
+    }
+
+    #watch-buttons {
+        text-align: justify;
+    }
+}
+
+/***************************************/
+/* End Responsive */
+/***************************************/
+
+
+
+/***************************************/
+/* Star Rating */
+/***************************************/
+.star-rating {
+    font-size: 25px;
+    margin: 0 5% 10% 0;
+    font-family: FontAwesome;
+}
+
+.star-rating > .checked {
+    color: #fdd504;
+}
+
+.star-rating:hover {
+    direction: rtl;
+}
+
+.star-rating:hover>.checked {
+    color: white;
+}
+.star-rating > span:hover:before,
+.star-rating > span:hover ~ span:before {
+    content: "\f005";
+    color: #fdd504;
+}
+/***************************************/
+/* End Star Rating */
+/***************************************/
+
+
+/***************************************/
+/* Help box */
+/***************************************/
+.help {
+    font-size: 1.0em;
+    margin: 0 5% 5% 0;
+}
+/***************************************/
+/* End Help box */
+/***************************************/
+
+
+
+/***************************************/
+/* Rate Number */
+/***************************************/
+.rate-no {
+    font-size: 1.2em;
+    margin: 0 5% 2% 0;
+}
+
+.rate-no > span {
+    color: #fdd504;
+}
+/***************************************/
+/* End Rate Number */
+/***************************************/
+
+
