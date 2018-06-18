@@ -1,4 +1,4 @@
-package io.anhkhue.crawlservice;
+package io.anhkhue.more.crawlservice;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

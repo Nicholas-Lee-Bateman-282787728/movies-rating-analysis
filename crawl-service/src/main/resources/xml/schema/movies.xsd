@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsi:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema">
+
+    <xsi:element name="movies">
+        <xsi:complexType>
+            <xsi:sequence>
+                <xsi:element name="movie" type="Movie" maxOccurs="unbounded"/>
+            </xsi:sequence>
+        </xsi:complexType>
+    </xsi:element>
+
+    <xsi:complexType name="Movie">
+        <xsi:sequence>
+            <xsi:element name="id" type="xsi:string"/>
+            <xsi:element name="title" type="xsi:string"/>
+            <xsi:element name="onCinema" type="xsi:boolean"/>
+            <xsi:element name="isComing" type="xsi:boolean"/>
+            <xsi:element name="rating" type="xsi:double"/>
+            <xsi:element name="poster" type="xsi:anyURI"/>
+            <xsi:element name="view" type="xsi:integer"/>
+            <xsi:element name="links" type="Links"/>
+            <xsi:element name="director" type="xsi:string"/>
+            <xsi:element name="actors" type="Actors"/>
+            <xsi:element name="categories" type="Categories"/>
+        </xsi:sequence>
+    </xsi:complexType>
+
+    <xsi:complexType name="Actors">
+        <xsi:sequence>
+            <xsi:element name="actors" type="xsi:string" maxOccurs="unbounded"/>
+        </xsi:sequence>
+    </xsi:complexType>
+
+    <xsi:complexType name="Categories">
+        <xsi:sequence>
+            <xsi:element name="category" type="Category" maxOccurs="unbounded"/>
+        </xsi:sequence>
+    </xsi:complexType>
+
+    <xsi:simpleType name="Category">
+        <xsi:restriction base="xsi:string">
+            <xsi:enumeration value="chiến tranh"/>
+            <xsi:enumeration value="gia đình"/>
+            <xsi:enumeration value="hài"/>
+            <xsi:enumeration value="hành động"/>
+            <xsi:enumeration value="hình sự"/>
+            <xsi:enumeration value="hoạt hình"/>
+            <xsi:enumeration value="học đường"/>
+            <xsi:enumeration value="kiếm hiệp"/>
+            <xsi:enumeration value="kinh dị"/>
+            <xsi:enumeration value="lãng mạn"/>
+            <xsi:enumeration value="phiêu lưu"/>
+            <xsi:enumeration value="tâm lý"/>
+            <xsi:enumeration value="thần thoại"/>
+            <xsi:enumeration value="thể thao - âm nhạc"/>
+            <xsi:enumeration value="tình cảm"/>
+            <xsi:enumeration value="tội phạm"/>
+            <xsi:enumeration value="trinh thám"/>
+            <xsi:enumeration value="viễn tưởng"/>
+            <xsi:enumeration value="võ thuật"/>
+        </xsi:restriction>
+    </xsi:simpleType>
+
+    <xsi:complexType name="Links">
+        <xsi:sequence>
+            <xsi:element name="links" type="Link" maxOccurs="unbounded"/>
+        </xsi:sequence>
+    </xsi:complexType>
+
+    <xsi:complexType name="Link">
+        <xsi:sequence>
+            <xsi:element name="url" type="xsi:string"/>
+            <xsi:element name="source" type="xsi:string"/>
+            <xsi:element name="isCinema" type="xsi:boolean"/>
+        </xsi:sequence>
+    </xsi:complexType>
+
+</xsi:schema>

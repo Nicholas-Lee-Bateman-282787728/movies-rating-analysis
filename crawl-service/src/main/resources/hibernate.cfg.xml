@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:mysql://0.0.0.0:3306/more_db</property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+      <mapping class="io.anhkhue.more.crawlservice.dto.AccountDTO"/>
+      <mapping class="io.anhkhue.more.crawlservice.dto.AccountRateMovieDTO"/>
+      <mapping class="io.anhkhue.more.crawlservice.dto.ActorDTO"/>
+      <mapping class="io.anhkhue.more.crawlservice.dto.ActorInMovieDTO"/>
+      <mapping class="io.anhkhue.more.crawlservice.dto.CategoryDTO"/>
+      <mapping class="io.anhkhue.more.crawlservice.dto.LinkDTO"/>
+      <mapping class="io.anhkhue.more.crawlservice.dto.MovieDTO"/>
+      <mapping class="io.anhkhue.more.crawlservice.dto.MovieHasCategoryDTO"/>
+      <!-- <property name="connection.username"/> -->
+    <!-- <property name="connection.password"/> -->
+
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>
