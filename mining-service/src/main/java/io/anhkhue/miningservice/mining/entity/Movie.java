@@ -1,6 +1,6 @@
-package io.anhkhue.miningservice.model;
+package io.anhkhue.miningservice.mining.entity;
 
-public class Movie {
+public class Movie implements BasedMining {
 
     private long id;
     private String title;

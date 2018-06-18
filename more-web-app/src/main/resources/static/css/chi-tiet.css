@@ -1,0 +1,36 @@
+.wrapper {
+  padding-top: 3rem;
+  padding-bottom: 7rem;
+}
+
+.movie-img {
+  align-items: center;
+}
+
+.movie-img img {
+  /* margin-left: 5%; */
+  margin-top: 50px;
+  min-width: 18rem; 
+  box-shadow: 0px 5px 5px 0px #adb5bd;
+}
+
+.card {
+  margin-top: 50px;
+  background: #eee;
+  padding: 3em;
+  line-height: 1.5em; 
+}
+
+.product-title {
+  text-transform: UPPERCASE;
+  font-weight: bold; }
+
+.checked, .price span {
+  color: #ff9f1a; }
+
+.product-title, .rating, .product-description, .price, .vote, .sizes {
+  margin-bottom: 15px; }
+
+.product-title {
+  margin-top: 0; 
+}

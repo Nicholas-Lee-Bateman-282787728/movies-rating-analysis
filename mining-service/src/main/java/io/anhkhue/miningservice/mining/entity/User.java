@@ -1,6 +1,6 @@
-package io.anhkhue.miningservice.model;
+package io.anhkhue.miningservice.mining.entity;
 
-public class User {
+public class User implements BasedMining {
 
     private long id;
     private String username;
