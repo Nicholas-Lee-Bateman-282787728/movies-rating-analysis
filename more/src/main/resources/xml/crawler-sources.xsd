@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsi:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://xml.anhkhue.io/schema/crawler-sources"
+            xmlns="http://xml.anhkhue.io/schema/crawler-sources"
+            elementFormDefault="qualified">
+
+    <xsi:element name="sources">
+        <xsi:complexType>
+            <xsi:sequence>
+                <xsi:element name="source" type="Source" maxOccurs="unbounded"/>
+            </xsi:sequence>
+        </xsi:complexType>
+    </xsi:element>
+
+    <xsi:complexType name="Source">
+        <xsi:sequence>
+            <xsi:element name="name" type="xsi:string"/>
+            <xsi:element name="classPath" type="xsi:string"/>
+            <xsi:element name="pages" type="Pages"/>
+        </xsi:sequence>
+        <xsi:attribute name="isCinema" type="xsi:boolean" use="required"/>
+    </xsi:complexType>
+
+    <xsi:complexType name="Pages">
+        <xsi:sequence>
+            <xsi:element name="page" type="Page" maxOccurs="unbounded"/>
+        </xsi:sequence>
+    </xsi:complexType>
+
+    <xsi:complexType name="Page">
+        <xsi:sequence>
+            <xsi:element name="type">
+                <xsi:simpleType>
+                    <xsi:restriction base="xsi:string">
+                        <xsi:enumeration value="List"/>
+                        <xsi:enumeration value="Detail"/>
+                    </xsi:restriction>
+                </xsi:simpleType>
+            </xsi:element>
+            <xsi:element name="link" type="xsi:anyURI"/>
+            <xsi:element name="startPoint" type="xsi:string"/>
+            <xsi:element name="endPoint" type="xsi:string"/>
+        </xsi:sequence>
+        <xsi:attribute name="isComing" type="xsi:boolean" use="required"/>
+        <xsi:attribute name="containPagination" type="xsi:boolean"/>
+    </xsi:complexType>
+
+</xsi:schema>

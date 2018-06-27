@@ -1,0 +1,46 @@
+<movies>
+    <movie>
+        <id>1</id>
+        <title>luis và nhóm bạn ngoài hành tinh</title>
+        <year>2018</year>
+        <onCinema>true</onCinema>
+        <isComing>true</isComing>
+        <rating>0.0</rating>
+        <poster>https://www.bhdstar.vn/wp-content/uploads/2018/06/Luis-245x365.jpg</poster>
+        <view>0</view>
+        <links>
+            <link>
+                <url>https://www.bhdstar.vn/movies/skyscraper/</url>
+                <source>BHD Star</source>
+                <isCinema>true</isCinema>
+            </link>
+        </links>
+        <director>Christoph Lauenstein, Wolfgang Lauenstein</director>
+    </movie>
+    <movie>
+        <id>2</id>
+        <title>trận chiến trân châu cảng</title>
+        <year>2001</year>
+        <onCinema>false</onCinema>
+        <isComing>false</isComing>
+        <rating>0.0</rating>
+        <poster>
+            https://4.bp.blogspot.com/-5QrMa-i2wH0/Wwyo4CF3FZI/AAAAAAAAFf0/Yd_3cSq_qqgWw03Y3AkrB4dbV9_87WCBgCLcBGAs/s1600/tran-chien-tran-chau-cang-poster.jpg
+        </poster>
+        <view>0</view>
+        <director>Michael Bay</director>
+    </movie>
+    <movie>
+        <id>3</id>
+        <title>quái thú hồi sinh</title>
+        <year>2016</year>
+        <onCinema>false</onCinema>
+        <isComing>false</isComing>
+        <rating>0.0</rating>
+        <poster>
+            https://1.bp.blogspot.com/-FYoa7h2zArM/WxNxb2yK8sI/AAAAAAAAFnc/2dIvFaQz6I4jCGxg-D93_-eQWL3u0T7PgCLcBGAs/s1600/quai-thu-hoi-sinh-poster.jpg
+        </poster>
+        <view>0</view>
+        <director>Hideaki Anno</director>
+    </movie>
+</movies>

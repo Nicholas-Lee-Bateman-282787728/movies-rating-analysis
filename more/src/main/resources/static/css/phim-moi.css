@@ -1,0 +1,39 @@
+header.masthead {
+  background: url("../img/bg-masthead-2.jpg");
+  background-size: 100% 100%;
+}
+
+.movies {
+  padding-top: 3rem;
+  padding-bottom: 7rem;
+}
+
+.movies .movie-item {
+  max-width: 18rem;
+}
+
+.movies .movie-item img {
+  min-height: 18rem;
+  max-width: 12rem;
+  box-shadow: 0 5px 5px 0 #adb5bd;
+}
+
+.movies .movie-item img:hover {
+  min-height: 18rem;
+  max-width: 12rem;
+  box-shadow: 0 8px 8px 0 #28a745;
+}
+
+.page-link{
+  color: #28a745;
+}
+
+a.page-link:hover {
+  color: #28a745;
+}
+
+.page-item.active .page-link {
+  color: whitesmoke;
+  background-color: #28a745;
+  border-color: #28a745;
+}

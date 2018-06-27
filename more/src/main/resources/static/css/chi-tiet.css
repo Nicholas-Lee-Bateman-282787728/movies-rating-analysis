@@ -1,0 +1,106 @@
+.wrapper {
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+}
+
+.movie-img {
+    padding-right: 10%;
+}
+
+.movie-img img {
+    /* margin-left: 5%; */
+    margin-top: 50px;
+    min-width: 18rem;
+    box-shadow: 0px 5px 5px 0px #adb5bd;
+}
+
+.card {
+    margin-top: 20px;
+    background: #eee;
+    padding: 3em;
+    line-height: 1.5em;
+}
+
+.product-title {
+    font-size: 2.2em;
+    text-transform: UPPERCASE;
+    font-weight: bold;
+}
+
+.product-title, .year, .category, .movie-link, .movie-info, .buttons-group {
+    margin-bottom: 25px;
+}
+
+.vote {
+    margin-top: 20px;
+}
+
+/***************************************/
+/* Star Rating */
+/***************************************/
+.star-rating {
+    font-size: 25px;
+    margin: 0 5% 10% 0;
+    font-family: FontAwesome;
+}
+
+.star-rating > .checked {
+    color: #fdd504;
+}
+
+.star-rating:hover {
+    cursor: pointer;
+    direction: rtl;
+}
+
+.star-rating:hover > .checked {
+    color: black;
+}
+
+.star-rating > span:hover:before,
+.star-rating > span:hover ~ span:before {
+    content: "\f005";
+    color: #fdd504;
+}
+
+/***************************************/
+/* End Star Rating */
+/***************************************/
+
+/***************************************/
+/* Start Movie info */
+/***************************************/
+.movie-info {
+    font-size: 1.2em;
+}
+
+.movie-info > div > span {
+    color: #fdd504;
+}
+
+/***************************************/
+/* End Movie info */
+/***************************************/
+
+.buttons-group {
+    text-align: center
+}
+
+.buttons-group > button {
+    width: 30%;
+    font-size: 1.0em;
+}
+
+.testimonials {
+    padding-top: 0rem;
+    padding-bottom: 7rem;
+}
+
+.sorry-message {
+    padding-top: 5%;
+    padding-bottom: 10%;
+}
+
+.sorry-message img {
+    padding: 5%;
+}
