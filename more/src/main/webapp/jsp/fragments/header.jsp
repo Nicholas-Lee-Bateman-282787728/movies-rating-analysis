@@ -13,13 +13,14 @@
                 </a>
                 <div class="d-flex flex-row-reverse">
                     <c:if test="${not empty user}">
+                        <a class="btn btn-success" href="/dang-xuat">Đăng xuất</a>
                         <a class="btn text-success" href="#">
                                 ${user.lastName} ${user.middleName} ${user.firstName}
                         </a>
                     </c:if>
                     <c:if test="${empty user}">
-                        <a class="btn btn-success" href="/dang-ky">Sign Up</a>
-                        <a class="btn text-success" href="/dang-nhap">Sign In</a>
+                        <a class="btn btn-success" href="/dang-ky">Đăng ký</a>
+                        <a class="btn text-success" href="/dang-nhap">Đăng nhập</a>
                     </c:if>
                 </div>
             </div>

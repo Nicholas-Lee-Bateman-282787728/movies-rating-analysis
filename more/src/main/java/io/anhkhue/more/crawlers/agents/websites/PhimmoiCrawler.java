@@ -44,7 +44,7 @@ public class PhimmoiCrawler extends WebsiteCrawler {
                 break;
             case PAGINATION_LIST:
                 for (int i = 1; i <= MAX_PAGE; i++) {
-                    crawlMoviesByPagination(i + 30);
+                    crawlMoviesByPagination(i);
                 }
                 break;
         }

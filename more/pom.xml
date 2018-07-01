@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>more</name>
-    <description>Application for Analyzing and Recommendend movies with XML</description>
+    <description>Application for Analyzing and Recommended movies with XML</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

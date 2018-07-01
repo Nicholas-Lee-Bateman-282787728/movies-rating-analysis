@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface AccountRateMovieRepository extends JpaRepository<AccountRateMovie, Integer> {
 
-
     AccountRateMovie findByAccountUsernameAndMovieId(String username, int movieId);
 
     List<AccountRateMovie> findByMovieId(int movieId);

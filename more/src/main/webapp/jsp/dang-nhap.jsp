@@ -30,7 +30,9 @@
 
             </div>
             <label for="username" class="sr-only">Username</label>
-            <input type="text" id="username" class="form-control" placeholder="Tên tài khoản" required autofocus>
+            <input type="text" id="username" class="form-control" placeholder="Tên tài khoản"
+                   value="${sessionScope.NEW_USERNAME}"
+                   required autofocus>
             <label for="password" class="sr-only">Password</label>
             <input type="password" id="password" class="form-control" placeholder="Mật khẩu" required>
             <button class="btn btn-lg btn-success btn-block" type="button"

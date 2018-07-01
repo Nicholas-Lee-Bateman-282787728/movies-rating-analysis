@@ -61,8 +61,8 @@ public interface Parser<T> {
 //      Print html file for easier checking
 //        BufferedWriter writer = new BufferedWriter(new FileWriter("src/phimmoi.html"));
 //        writer.write(String.valueOf(content));
-//
 //        writer.close();
+
 
 //        System.out.println("Finish retrieving website");
         return new ByteArrayInputStream(content.toString().getBytes());

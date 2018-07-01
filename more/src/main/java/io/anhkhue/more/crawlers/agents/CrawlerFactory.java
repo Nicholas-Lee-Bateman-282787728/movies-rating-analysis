@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Component
@@ -33,7 +34,7 @@ public class CrawlerFactory {
         return null;
     }
 
-    public List<Crawler> scanCrawlers()
+    public Collection<Crawler> scanCrawlers()
             throws IOException,
                    XMLStreamException,
                    IllegalAccessException,

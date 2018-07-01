@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Bộ thu thập</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/landing-page.css" rel="stylesheet">
+    <link href="css/phim-moi.css" rel="stylesheet">
+    <link href="css/chi-tiet.css" rel="stylesheet">
+    <link href="css/crawler-switch.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/Logo_K.svg" alt="">
+                <span class="web-name">MoRe</span>
+            </a>
+            <div class="d-flex flex-row-reverse">
+                <a class="btn btn-success" href="#">Sign Up</a>
+                <a class="btn text-success" href="#">Sign In</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container text-center sorry-message">
+        <h1 class="message">Khởi động bộ thu thập dữ liệu</h1>
+        <label class="switch">
+            <input type="checkbox" checked id="switch-crawler" onclick="check();">
+            <span class="slider round"></span>
+        </label>
+        <h3 id="message">
+        </h3>
+        <h3 id="wait"></h3>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+                    <ul class="list-inline mb-2">
+                        <li class="list-inline-item">
+                            <a href="#">About</a>
+                        </li>
+                        <li class="list-inline-item">&sdot;</li>
+                        <li class="list-inline-item">
+                            <a href="#">Contact</a>
+                        </li>
+                        <li class="list-inline-item">&sdot;</li>
+                        <li class="list-inline-item">
+                            <a href="#">Terms of Use</a>
+                        </li>
+                        <li class="list-inline-item">&sdot;</li>
+                        <li class="list-inline-item">
+                            <a href="#">Privacy Policy</a>
+                        </li>
+                    </ul>
+                    <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2018. All Rights Reserved.</p>
+                </div>
+                <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item mr-3">
+                            <a href="#">
+                                <i class="fa fa-facebook fa-2x fa-fw"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item mr-3">
+                            <a href="#">
+                                <i class="fa fa-twitter fa-2x fa-fw"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fa fa-instagram fa-2x fa-fw"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        function check() {
+            var switchButton = document.getElementById('switch-crawler');
+
+            var message = document.getElementById('message');
+            var wait = document.getElementById("wait");
+
+
+            message.innerHTML = '';
+            if (switchButton.checked === true) {
+                message.innerHTML = 'Hệ thống đang thu thập dữ liệu<br/>';
+                wait.hidden = false;
+                var dots = window.setInterval(function () {
+                    var wait = document.getElementById("wait");
+                    if (wait.innerHTML.length > 3)
+                        wait.innerHTML = "";
+                    else
+                        wait.innerHTML += ".";
+                }, 500);
+            } else {
+                message.innerHTML = 'Đã tạm ngưng việc thu thập dữ liệu';
+                wait.hidden = true;
+            }
+        }
+    </script>
+
+</body>
+
+</html>

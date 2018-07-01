@@ -1,19 +1,31 @@
 package io.anhkhue.more.services;
 
+import io.anhkhue.more.crawlers.agents.Crawler;
+import io.anhkhue.more.crawlers.agents.CrawlerFactory;
 import io.anhkhue.more.crawlers.pool.CrawledPool;
 import io.anhkhue.more.crawlers.utils.StringConverter;
 import io.anhkhue.more.crawlers.validators.SchemaValidator;
-import io.anhkhue.more.models.dao.*;
+import io.anhkhue.more.models.dao.ActorInMovieDAO;
+import io.anhkhue.more.models.dao.MovieHasCategoryDAO;
 import io.anhkhue.more.models.dto.Actor;
 import io.anhkhue.more.models.dto.Category;
 import io.anhkhue.more.models.dto.Movie;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static io.anhkhue.more.crawlers.constants.CrawlersConstants.CategoryConstants.normalizedArray;
 import static io.anhkhue.more.crawlers.constants.CrawlersConstants.CategoryConstants.standardizedArray;
@@ -22,7 +34,13 @@ import static io.anhkhue.more.crawlers.constants.CrawlersConstants.CategoryConst
 @Service
 public class CrawlService {
 
-    private static final String MOVIE_SCHEMA_PATH = "xml/schema/movie.xsd";
+    public static boolean isCrawling = false;
+
+    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+    private static final String MOVIE_SCHEMA_PATH = "static/xml/schema/movie.xsd";
+
+    private final CrawlerFactory crawlerFactory;
 
     private final ActorService actorService;
     private final MovieService movieService;
@@ -34,9 +52,10 @@ public class CrawlService {
 
     private final StringConverter stringConverter;
 
-    public CrawlService(ActorService actorService, MovieService movieService, LinkService linkService,
+    public CrawlService(CrawlerFactory crawlerFactory, ActorService actorService, MovieService movieService, LinkService linkService,
                         ActorInMovieDAO actorInMovieDAO, MovieHasCategoryDAO movieHasCategoryDAO,
                         SchemaValidator schemaValidator, StringConverter stringConverter) {
+        this.crawlerFactory = crawlerFactory;
         this.actorService = actorService;
         this.movieService = movieService;
         this.linkService = linkService;
@@ -82,6 +101,7 @@ public class CrawlService {
                 String categoryName = category.getCategoryName();
                 movieHasCategoryDAO.save(movie.getId(), categoryName);
             }
+            log.info("Saved movie " + movie.getTitle());
         }
 
         CrawledPool.clearPool();
@@ -108,7 +128,7 @@ public class CrawlService {
             try {
                 schemaValidator.validate(movie, MOVIE_SCHEMA_PATH);
                 movies.add(movie);
-            } catch (JAXBException e) {
+            } catch (JAXBException | SAXException | IOException e) {
                 log.info(this.getClass().getSimpleName() + "_" + e.getClass().getSimpleName()
                          + ": Fail to validate " + movie.getTitle()
                          + "- Skipped");
@@ -116,5 +136,43 @@ public class CrawlService {
         }
 
         return movies;
+    }
+
+    private void crawl() throws XMLStreamException,
+                                InstantiationException,
+                                IllegalAccessException,
+                                IOException {
+        Collection<Crawler> crawlers = crawlerFactory.scanCrawlers();
+        crawlers.forEach(Crawler::crawl);
+
+        savePool();
+    }
+
+    public void controlCrawlers(boolean isTurnedOn) {
+        if (isTurnedOn) {
+            isCrawling = true;
+            Runnable crawlRunnable = () -> {
+                try {
+                    crawl();
+                    Date date = new Date();
+                    LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    int year = localDate.getYear();
+                    int month = localDate.getMonthValue();
+                    int day = localDate.getDayOfMonth();
+                    log.info("Finish crawling on date: " + day + "-" + month + "-" + year);
+                    LocalDate nextWeek = localDate.plusDays(7);
+                    log.info("Finish crawling on date: " + nextWeek.getDayOfMonth()
+                             + "-" + nextWeek.getMonthValue()
+                             + "-" + nextWeek.getYear());
+                } catch (XMLStreamException | InstantiationException | IOException | IllegalAccessException e) {
+                    log.info(this.getClass().getSimpleName() + "_" + e.getClass().getSimpleName() + ": " + e.getMessage());
+                }
+            };
+            scheduler = Executors.newScheduledThreadPool(1);
+            scheduler.scheduleAtFixedRate(crawlRunnable, 0, 7, TimeUnit.DAYS);
+        } else {
+            isCrawling = false;
+            scheduler.shutdown();
+        }
     }
 }

@@ -9,6 +9,8 @@ import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.util.JAXBSource;
+import javax.xml.transform.Source;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
@@ -18,28 +20,26 @@ import java.io.*;
 @Component
 public class SchemaValidator {
 
-    public void validate(Object jaxbObj, String schemaPath) throws JAXBException {
-        try {
-            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    public void validate(Object jaxbObj, String schemaPath) throws JAXBException, IOException, SAXException {
+        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-            // Set up Schema for validation
-            Schema schema = schemaFactory.newSchema(getSchema(schemaPath));
+        // Set up Schema for validation
+        Schema schema = schemaFactory.newSchema(getSchema(schemaPath));
 
-            Validator validator = schema.newValidator();
+        // Create JAXB Context
+        JAXBContext jaxbContext = JAXBContext.newInstance(jaxbObj.getClass());
 
-            // Create JAXB Context
-            JAXBContext jaxbContext = JAXBContext.newInstance(jaxbObj.getClass());
+        Validator validator = schema.newValidator();
+        Source jaxbSource = new JAXBSource(jaxbContext, jaxbObj);
+        validator.validate(jaxbSource);
 
-            // Instantiate marshaller
-            Marshaller marshaller = jaxbContext.createMarshaller();
-            marshaller.setSchema(schema);
+        // Instantiate marshaller
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setSchema(schema);
 
-            StringWriter stringWriter = new StringWriter();
+        StringWriter stringWriter = new StringWriter();
 
-            marshaller.marshal(jaxbObj, stringWriter);
-        } catch (IOException | SAXException e) {
-            log.info(this.getClass().getName() + "_" + e.getClass().getName() + ": " + e.getMessage());
-        }
+        marshaller.marshal(jaxbObj, stringWriter);
     }
 
     private File getSchema(String schemaPath) throws IOException {

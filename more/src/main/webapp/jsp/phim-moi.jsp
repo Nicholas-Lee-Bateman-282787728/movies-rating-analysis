@@ -59,6 +59,7 @@
 
         <script src="/js/pagination.js" type="text/javascript"></script>
         <script src="/js/movie-request.js" type="text/javascript"></script>
+        <script src="/js/client-cache.js" type="text/javascript"></script>
 
         <script type="text/javascript">
             // self executing function
@@ -67,6 +68,8 @@
                 getMoviesByPage(1);
                 // Generate Pagination
                 generatePagination(currentPage);
+                topNewMovies(moviePerPage * 10);
+                getMoviesByPageFromStorage('top', 1, moviePerPage);
             })();
 
             function getMoviesByPage(page) {

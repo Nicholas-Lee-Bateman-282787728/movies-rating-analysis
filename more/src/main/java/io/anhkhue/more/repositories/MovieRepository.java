@@ -21,6 +21,8 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     Set<Movie> findByOnCinema(boolean onCinema);
 
+    Set<Movie> findByOnCinemaAndIsComing(boolean onCinema, boolean isComing);
+
     Page<Movie> findAll(Pageable pageable);
 
     Page<Movie> findByIsComing(Pageable pageable, boolean isComing);

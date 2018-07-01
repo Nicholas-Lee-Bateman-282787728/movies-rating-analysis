@@ -26,7 +26,7 @@ public class SourceReader {
 
     private final StAXParser stAXParser;
 
-    private String XML_CRAWLER_SOURCES_PATH = "xml/crawler-sources.xml";
+    private String XML_CRAWLER_SOURCES_PATH = "static/xml/crawler-sources.xml";
 
     public SourceReader(StAXParser stAXParser) {
         this.stAXParser = stAXParser;

@@ -14,28 +14,38 @@
 
     <xsl:template match="/ns:movie">
         <input type="hidden" id="movie-id" value="{ns:id}"/>
+
         <div class="col-md-5 col-xs-12 text-center movie-img">
             <img class="img-thumbnail mb-3" src="{ns:poster}" alt=""/>
-            <div id="message">
-                Giúp chúng tôi đánh giá phim này
-            </div>
-            <div id="star-rating" class="star-rating">
-                <xsl:call-template name="starRating">
-                    <xsl:with-param name="starNumber" select="1"/>
-                </xsl:call-template>
-                <xsl:call-template name="starRating">
-                    <xsl:with-param name="starNumber" select="2"/>
-                </xsl:call-template>
-                <xsl:call-template name="starRating">
-                    <xsl:with-param name="starNumber" select="3"/>
-                </xsl:call-template>
-                <xsl:call-template name="starRating">
-                    <xsl:with-param name="starNumber" select="4"/>
-                </xsl:call-template>
-                <xsl:call-template name="starRating">
-                    <xsl:with-param name="starNumber" select="5"/>
-                </xsl:call-template>
-            </div>
+            <xsl:if test="ns:isComing[.='true']">
+                <div id="message">
+                    <div class="alert alert-info">
+                        Phim sắp ra mắt
+                    </div>
+                </div>
+            </xsl:if>
+            <xsl:if test="ns:isComing[.='false']">
+                <div id="message">
+                    Giúp chúng tôi đánh giá phim này
+                </div>
+                <div id="star-rating" class="star-rating">
+                    <xsl:call-template name="starRating">
+                        <xsl:with-param name="starNumber" select="1"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="starRating">
+                        <xsl:with-param name="starNumber" select="2"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="starRating">
+                        <xsl:with-param name="starNumber" select="3"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="starRating">
+                        <xsl:with-param name="starNumber" select="4"/>
+                    </xsl:call-template>
+                    <xsl:call-template name="starRating">
+                        <xsl:with-param name="starNumber" select="5"/>
+                    </xsl:call-template>
+                </div>
+            </xsl:if>
         </div>
 
         <div class="card col-md-7 col-xs-12">
@@ -69,7 +79,7 @@
             <div class="row movie-info">
                 <div class="col-md-3">Đánh giá:</div>
                 <div id="movie-rating" class="col">
-                    <xsl:value-of select="ns:rating"/>
+                    <xsl:value-of select="format-number(number(ns:rating), '0.##')"/>
                     <xsl:text> </xsl:text>
                     <span class="fa fa-star"/>
                 </div>
@@ -98,10 +108,10 @@
                     </xsl:for-each>
                 </div>
             </xsl:if>
-            <div class="vote">
-                <strong>91%</strong>
+            <div class="vote" id="vote">
+                <!--<strong>91%</strong>
                 người xem đánh giá cao phim này
-                <strong>(87 votes)</strong>
+                <strong>(87 votes)</strong>-->
             </div>
         </div>
     </xsl:template>

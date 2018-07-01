@@ -37,6 +37,9 @@ public class Account {
     @Column(name = "gender")
     private boolean gender;
 
+    @Column(name = "role")
+    private int role;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

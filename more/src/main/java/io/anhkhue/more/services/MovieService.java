@@ -3,6 +3,7 @@ package io.anhkhue.more.services;
 import io.anhkhue.more.crawlers.agents.vendors.VendorCrawler;
 import io.anhkhue.more.functions.Similarity;
 import io.anhkhue.more.models.dto.*;
+import io.anhkhue.more.models.mining.HighVote;
 import io.anhkhue.more.repositories.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -30,7 +31,6 @@ public class MovieService {
     static final int UNABLE_TO_SAVE = -2;
 
     private final Similarity<Movie> movieSimilarity;
-
 
     private final MovieRepository movieRepository;
     private final ActorInMovieRepository actorInMovieRepository;
@@ -120,7 +120,6 @@ public class MovieService {
             int existedId = existed(movie);
             if (existedId == NOT_EXISTED) {
                 movieRepository.save(movie);
-
                 movieRepository.flush();
                 result = movie.getId();
             } else {
@@ -131,6 +130,15 @@ public class MovieService {
         }
 
         return result;
+    }
+
+    public void visit(int movieId) {
+        Movie movie = findById(movieId);
+        if (movie != null) {
+            int view = movie.getView() + 1;
+            movie.setView(view);
+            movieRepository.save(movie);
+        }
     }
 
     @Transactional
@@ -164,6 +172,22 @@ public class MovieService {
         return totalRating;
     }
 
+    public HighVote getHighVoteByMovieId(int movieId) {
+        List<AccountRateMovie> ratings = accountRateMovieRepository.findByMovieId(movieId);
+
+        HighVote highVote = HighVote.builder()
+                                    .totalVote(ratings.size())
+                                    .build();
+
+        long highRate = ratings.stream()
+                               .map(AccountRateMovie::getRating)
+                               .filter(rating -> rating > 3)
+                               .count();
+
+        highVote.setPercentage(((double) highRate / ratings.size()) * 100);
+        return highVote;
+    }
+
     private int existed(Movie newMovie) {
         AtomicInteger result = new AtomicInteger(NOT_EXISTED);
         Collection<Movie> moviesByDirectorAndYear = movieRepository.findByDirectorAndYear(newMovie.getDirector(),
@@ -182,14 +206,31 @@ public class MovieService {
     }
 
     void updateOldVendorMovies() {
-        Set<Movie> oldShowingMovies = movieRepository.findByOnCinema(true);
+        updateOldComingMovies();
+        updateOldShowingMovies();
+    }
 
-        Set<Movie> moviesToUpdate = oldShowingMovies
+    private void updateOldShowingMovies() {
+        Set<Movie> oldMovies = movieRepository.findByOnCinemaAndIsComing(true, false);
+
+        Set<Movie> moviesToUpdate = oldMovies
                 .stream()
                 .filter(movie -> !VendorCrawler.showingMovies.contains(movie))
                 .collect(Collectors.toSet());
 
-        moviesToUpdate.forEach(movieDto -> movieDto.setOnCinema(false));
+        moviesToUpdate.forEach(movie -> movie.setComing(false));
+        movieRepository.saveAll(moviesToUpdate);
+    }
+
+    private void updateOldComingMovies() {
+        Set<Movie> oldMovies = movieRepository.findByOnCinemaAndIsComing(true, true);
+
+        Set<Movie> moviesToUpdate = oldMovies
+                .stream()
+                .filter(movie -> !VendorCrawler.comingMovies.contains(movie))
+                .collect(Collectors.toSet());
+
+        moviesToUpdate.forEach(movie -> movie.setComing(false));
         movieRepository.saveAll(moviesToUpdate);
     }
 }

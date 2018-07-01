@@ -23,6 +23,18 @@
         <link href="/css/chi-tiet.css" rel="stylesheet">
     </head>
     <body>
+        <script>
+            var movie = '${requestScope.MOVIE}';
+            // Create Parser
+            var parser = new DOMParser();
+
+            movie = movie.replace(new RegExp(' xmlns(:.*?)?=(".*?")'), '');
+            var xmlDoc = parser.parseFromString(movie, "text/xml");
+
+            // Retrieve Node List of movies
+            var movieId = xmlDoc.evaluate('//id', xmlDoc, null, XPathResult.STRING_TYPE, null).stringValue;
+        </script>
+
         <!-- Header -->
         <jsp:include page="fragments/header.jsp"/>
 
@@ -91,6 +103,11 @@
         <jsp:include page="fragments/footer.jsp"/>
 
         <script type="text/javascript">
+            // self executing function
+            (function () {
+                getHighVote();
+            })();
+
             function rate(star) {
                 var stars = document.getElementsByClassName('star');
 
@@ -132,6 +149,42 @@
                 };
 
                 request.send(params);
+            }
+
+            function getHighVote() {
+                var vote = document.getElementById('vote');
+                vote.innerHTML = '';
+
+                var request = new XMLHttpRequest();
+                var url = '/movies/' + movieId + '/high-vote';
+                console.log(url);
+
+                request.open('GET', url, true);
+
+                request.onreadystatechange = function () {
+                    if (request.readyState === 4 && request.status === 200) {
+                        var highVote = request.responseText;
+                        console.log(highVote);
+                        var parser = new DOMParser();
+
+                        highVote = highVote.replace(new RegExp(' xmlns(:.*?)?=(".*?")'), '');
+                        var xmlDoc = parser.parseFromString(highVote, "text/xml");
+
+                        var percentage = xmlDoc.evaluate('//percentage', xmlDoc, null, XPathResult.STRING_TYPE, null).stringValue;
+                        percentage = parseFloat(percentage).toFixed(2);
+                        var totalVote = xmlDoc.evaluate('//totalVote', xmlDoc, null, XPathResult.STRING_TYPE, null).stringValue;
+
+                        var percentageStrong = document.createElement('strong');
+                        percentageStrong.append(percentage + ' %');
+                        vote.appendChild(percentageStrong);
+                        vote.append(' người xem đánh giá cao phim này ');
+                        var voteStrong = document.createElement('strong');
+                        voteStrong.append('(' + totalVote + ' votes)');
+                        vote.appendChild(voteStrong);
+                    }
+                };
+
+                request.send();
             }
         </script>
     </body>

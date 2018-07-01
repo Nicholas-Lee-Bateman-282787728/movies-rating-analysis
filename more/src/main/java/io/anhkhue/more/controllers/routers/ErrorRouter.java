@@ -21,7 +21,9 @@ public class ErrorRouter implements ErrorController {
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 request.setAttribute("ERROR_MESSAGE", "Chúng tôi không thể tìm thấy trang bạn yêu cầu!");
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                request.setAttribute("ERROR_MESSAGE", "Đã xảy ra lỗi ngoài ý muốn!");
+                request.setAttribute("ERROR_MESSAGE", "Đã xảy ra sự cố ngoài ý muốn!");
+            } else {
+                request.setAttribute("ERROR_MESSAGE", "Hệ thống đang có vẫn đề. Xin chân thành cáo lỗi quý vị.");
             }
         }
 
