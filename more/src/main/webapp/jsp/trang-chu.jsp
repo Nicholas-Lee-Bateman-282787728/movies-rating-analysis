@@ -44,7 +44,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4">
-                        <a href="phim-moi.html">
+                        <a href="/phim-moi">
                             <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                                 <div class="features-icons-icon d-flex">
                                     <i class="icon-film m-auto text-success"></i>
@@ -54,7 +54,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4">
-                        <a href="sap-ra-mat.html">
+                        <a href="/sap-ra-mat">
                             <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                                 <div class="features-icons-icon d-flex">
                                     <i class="icon-event m-auto text-success"></i>
@@ -81,20 +81,26 @@
         <!-- Footer -->
         <jsp:include page="fragments/footer.jsp"/>
 
-        <script src="/js/movie-request.js" type="text/javascript"></script>
+        <script src="/js/client-cache.js" type="text/javascript"></script>
+        <script src="/js/more/MovieAccessor.js" type="text/javascript"></script>
+        <script src="/js/more/MoviePresenter.js" type="text/javascript"></script>
+        <script src="/js/more/Pagination.js" type="text/javascript"></script>
 
         <script type="text/javascript">
             // self executing function
             (function () {
-                // Get Movies
-                getTopMovies();
-            })();
+                var movieAccessor = new MovieAccessor('top', 1, 8);
 
-            function getTopMovies() {
-                var url = '/movies/top/page=1&no=8';
-                getMovies(url);
-            }
+                var moviePresenter = new MoviePresenter('movies', movieAccessor);
+                if (sessionStorage.getItem('topMovies') === null) {
+                    topNewMovies(12 * 10, moviePresenter);
+                } else {
+                    moviePresenter.presentByPage(1, 8);
+                }
+                if (sessionStorage.getItem('topMovies') === null) {
+                    topComingMovies(12 * 10, null);
+                }
+            })();
         </script>
     </body>
-
 </html>

@@ -57,25 +57,26 @@
         <!-- Footer -->
         <jsp:include page="fragments/footer.jsp"/>
 
-        <script src="/js/pagination.js" type="text/javascript"></script>
-        <script src="/js/movie-request.js" type="text/javascript"></script>
         <script src="/js/client-cache.js" type="text/javascript"></script>
+        <script src="/js/more/MovieAccessor.js" type="text/javascript"></script>
+        <script src="/js/more/MoviePresenter.js" type="text/javascript"></script>
+        <script src="/js/more/Pagination.js" type="text/javascript"></script>
 
         <script type="text/javascript">
             // self executing function
             (function () {
-                // Get Movies
-                getMoviesByPage(1);
-                // Generate Pagination
-                generatePagination(currentPage);
-                topNewMovies(moviePerPage * 10);
-                getMoviesByPageFromStorage('top', 1, moviePerPage);
-            })();
+                var pagination = new Pagination(currentPage, 'top');
 
-            function getMoviesByPage(page) {
-                var url = '/movies/top/page=' + page + '&no=' + moviePerPage;
-                getMovies(url);
-            }
+                pagination.createPagination('pagination');
+                var movieAccessor = new MovieAccessor('top', currentPage, moviePerPage);
+
+                var moviePresenter = new MoviePresenter('movies', movieAccessor);
+                if (sessionStorage.getItem('topMovies') === null) {
+                    topNewMovies(moviePerPage * 10, moviePresenter);
+                } else {
+                    moviePresenter.presentByPage(currentPage, moviePerPage);
+                }
+            })();
         </script>
     </body>
 </html>
