@@ -2,6 +2,7 @@ function MoviePresenter(presentAreaId, accessor) {
     this.presentArea = document.getElementById(presentAreaId);
 
     this.present = function () {
+        this.presentArea.innerHTML = '';
         var movie = accessor.movies.iterateNext();
 
         var i = 0;
@@ -53,18 +54,17 @@ function MoviePresenter(presentAreaId, accessor) {
             i = i + 1;
             // Append row to section before creating new row
             // after 4 items has been iterated
-            if ((i + 1) % 4 === 0) {
+            movie = accessor.movies.iterateNext();
+
+            if (((i + 1) % 4 === 0) || movie === null) {
                 row.appendChild(document.createElement('br'));
                 row.appendChild(document.createElement('br'));
                 this.presentArea.appendChild(row);
             }
-
-            movie = accessor.movies.iterateNext();
         }
     };
 
     this.presentByPage = function (page, moviePerPage) {
-        this.presentArea.innerHTML = '';
         if ((moviePerPage * page) <= 120) {
             accessor.getFromStorage();
             this.present();

@@ -72,7 +72,7 @@
                 var movieAccessor = new MovieAccessor('coming', currentPage, moviePerPage);
 
                 var moviePresenter = new MoviePresenter('movies', movieAccessor);
-                if (sessionStorage.getItem('topMovies') === null) {
+                if (sessionStorage.getItem('comingMovies') === null) {
                     topComingMovies(moviePerPage * 10, moviePresenter);
                 } else {
                     moviePresenter.presentByPage(currentPage, moviePerPage);

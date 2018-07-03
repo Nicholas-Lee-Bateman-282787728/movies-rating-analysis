@@ -27,7 +27,7 @@ import static io.anhkhue.more.crawlers.constants.CrawlersConstants.PageTypeConst
 public class PhimmoiCrawler extends WebsiteCrawler {
 
     private final String sourceName = "Phimmoi.com";
-    private static final int MAX_PAGE = 10;
+    private static final int MAX_PAGE = 5;
 
     private final Collection<Movie> dtoCollection = new HashSet<>();
 

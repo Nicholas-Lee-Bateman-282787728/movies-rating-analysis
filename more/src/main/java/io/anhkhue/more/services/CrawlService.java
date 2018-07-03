@@ -159,9 +159,9 @@ public class CrawlService {
                     int year = localDate.getYear();
                     int month = localDate.getMonthValue();
                     int day = localDate.getDayOfMonth();
-                    log.info("Finish crawling on date: " + day + "-" + month + "-" + year);
+                    log.info("Finish crawling on : " + day + "-" + month + "-" + year);
                     LocalDate nextWeek = localDate.plusDays(7);
-                    log.info("Finish crawling on date: " + nextWeek.getDayOfMonth()
+                    log.info("Next crawling will start on : " + nextWeek.getDayOfMonth()
                              + "-" + nextWeek.getMonthValue()
                              + "-" + nextWeek.getYear());
                 } catch (XMLStreamException | InstantiationException | IOException | IllegalAccessException e) {

@@ -20,7 +20,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @Slf4j
@@ -109,7 +108,7 @@ public class MovieService {
     public Page<Movie> findIsComingMovies(int page, int moviePerPage) {
         int actualPage = page - 1;
         Pageable pageable = PageRequest.of(actualPage, moviePerPage,
-                                           new Sort(ASC, "year"));
+                                           new Sort(DESC, "year"));
 
         return movieRepository.findByIsComing(pageable, Boolean.TRUE);
     }

@@ -37,26 +37,26 @@ public class MoreApplication {
     @Bean
     CommandLineRunner init() {
         return args -> {
-//            List<String> usernameList = accountRepository.findAll().stream()
-//                                                         .map(Account::getUsername)
-//                                                         .collect(Collectors.toList());
-//            List<Movie> movies = movieRepository.findAll();
-//
-//            Runnable runnable = () -> {
-//                String randomUsername = usernameList.get(new Random().nextInt(usernameList.size()));
-//                Movie randomMovie = movies.get(new Random().nextInt(movies.size()));
-//                int randomRating = new Random().nextInt(RATING_MAX + 1 - RATING_MIN) + RATING_MIN;
-//
-//                movieService.visit(randomMovie.getId());
-//                log.info("A user visited movie id " + randomMovie.getTitle());
-//                if (!randomMovie.isComing()) {
-//                    movieService.rate(randomRating, randomMovie.getId(), randomUsername);
-//                    log.info(randomUsername + " rated " + randomRating + " for movie " + randomMovie.getTitle());
-//                }
-//            };
-//
-//            Executors.newScheduledThreadPool(1)
-//                     .scheduleAtFixedRate(runnable, 0, 100, TimeUnit.MILLISECONDS);
+            /*List<String> usernameList = accountRepository.findAll().stream()
+                                                         .map(Account::getUsername)
+                                                         .collect(Collectors.toList());
+            List<Movie> movies = movieRepository.findAll();
+
+            Runnable runnable = () -> {
+                String randomUsername = usernameList.get(new Random().nextInt(usernameList.size()));
+                Movie randomMovie = movies.get(new Random().nextInt(movies.size()));
+                int randomRating = new Random().nextInt(RATING_MAX + 1 - RATING_MIN) + RATING_MIN;
+
+                movieService.visit(randomMovie.getId());
+                log.info("A user visited movie id " + randomMovie.getTitle());
+                if (!randomMovie.isComing()) {
+                    movieService.rate(randomRating, randomMovie.getId(), randomUsername);
+                    log.info(randomUsername + " rated " + randomRating + " for movie " + randomMovie.getTitle());
+                }
+            };
+
+            Executors.newScheduledThreadPool(1)
+                     .scheduleAtFixedRate(runnable, 0, 100, TimeUnit.MILLISECONDS);*/
         };
     }
 }

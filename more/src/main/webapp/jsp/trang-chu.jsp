@@ -97,7 +97,7 @@
                 } else {
                     moviePresenter.presentByPage(1, 8);
                 }
-                if (sessionStorage.getItem('topMovies') === null) {
+                if (sessionStorage.getItem('comingMovies') === null) {
                     topComingMovies(12 * 10, null);
                 }
             })();
