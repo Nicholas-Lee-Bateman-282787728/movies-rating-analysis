@@ -4,13 +4,16 @@ import io.anhkhue.more.mining.function.similarity.Similarity;
 import io.anhkhue.more.mining.model.Movie;
 import io.anhkhue.more.mining.repository.ActorInMovieRepository;
 import io.anhkhue.more.mining.repository.MovieHasCategoryRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MovieInfoCentric implements Similarity<Movie> {
 
     private final MovieHasCategoryRepository movieHasCategoryRepository;
     private final ActorInMovieRepository actorInMovieRepository;
 
-    public MovieInfoCentric(MovieHasCategoryRepository movieHasCategoryRepository, ActorInMovieRepository actorInMovieRepository) {
+    public MovieInfoCentric(MovieHasCategoryRepository movieHasCategoryRepository,
+                            ActorInMovieRepository actorInMovieRepository) {
         this.movieHasCategoryRepository = movieHasCategoryRepository;
         this.actorInMovieRepository = actorInMovieRepository;
     }
@@ -33,7 +36,9 @@ public class MovieInfoCentric implements Similarity<Movie> {
 
         // Similar Actors score
         Long actorScore = actorInMovieRepository.countCommonActors(movie1.getId(), movie2.getId());
-        totalScore += categoryScore;
+        if (actorScore != null) {
+            totalScore += actorScore;
+        }
 
         return totalScore;
     }

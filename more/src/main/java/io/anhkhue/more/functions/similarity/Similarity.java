@@ -1,4 +1,4 @@
-package io.anhkhue.more.functions;
+package io.anhkhue.more.functions.similarity;
 
 @FunctionalInterface
 public interface Similarity<T> {

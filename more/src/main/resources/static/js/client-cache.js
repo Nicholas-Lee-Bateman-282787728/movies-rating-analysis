@@ -24,8 +24,25 @@ function topComingMovies(total, presenter) {
 
     request.onreadystatechange = function () {
         if (this.readyState === 4 || this.status === 200) {
-            console.log(request.responseText);
             sessionStorage.setItem('comingMovies', request.responseText);
+            if (presenter !== null) {
+                presenter.presentByPage(1, 12);
+            }
+        }
+    };
+
+    request.send();
+}
+
+function topRecommendedMovies(total, presenter) {
+    var request = new XMLHttpRequest();
+    var url = '/movies/recommended/page=1&no=' + total;
+
+    request.open('GET', url, true);
+
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 || this.status === 200) {
+            sessionStorage.setItem('recommendedMovies', request.responseText);
             if (presenter !== null) {
                 presenter.presentByPage(1, 12);
             }

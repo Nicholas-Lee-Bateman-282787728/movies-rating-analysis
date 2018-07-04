@@ -51,7 +51,7 @@
                 <section class="testimonials text-center">
                     <div class="container">
                         <h2 class="mb-5">Có thể bạn sẽ thích</h2>
-                        <div class="row">
+                        <div class="row" id="similar">
                             <div class="col-lg-3">
                                 <div class="testimonial-item mx-auto mb-5 mb-lg-0">
                                     <img class="img-thumbnail mb-3" src="img/justice_league.jpeg" alt="">
@@ -101,11 +101,13 @@
 
         <!-- Footer -->
         <jsp:include page="fragments/footer.jsp"/>
+        <script src="/js/client-cache.js" type="text/javascript"></script>
 
         <script type="text/javascript">
             // self executing function
             (function () {
                 getHighVote();
+                getSimilarMovies();
             })();
 
             function rate(star) {
@@ -136,6 +138,7 @@
 
                         var message = document.getElementById('message');
                         message.innerHTML = "Cảm ơn phản hồi của bạn!";
+                        topRecommendedMovies(12 * 10, null);
                     } else if (request.status === 401) {
                         message = document.getElementById('message');
 
@@ -153,18 +156,16 @@
 
             function getHighVote() {
                 var vote = document.getElementById('vote');
-                vote.innerHTML = '';
 
                 var request = new XMLHttpRequest();
                 var url = '/movies/' + movieId + '/high-vote';
-                console.log(url);
 
                 request.open('GET', url, true);
 
                 request.onreadystatechange = function () {
                     if (request.readyState === 4 && request.status === 200) {
+                        vote.innerHTML = '';
                         var highVote = request.responseText;
-                        console.log(highVote);
                         var parser = new DOMParser();
 
                         highVote = highVote.replace(new RegExp(' xmlns(:.*?)?=(".*?")'), '');
@@ -181,6 +182,75 @@
                         var voteStrong = document.createElement('strong');
                         voteStrong.append('(' + totalVote + ' votes)');
                         vote.appendChild(voteStrong);
+                    } else if (request.status === 404) {
+                        vote.innerHTML = '';
+                        vote.append('Chưa có ai đánh giá phim này.');
+                    }
+                };
+
+                request.send();
+            }
+            
+            function getSimilarMovies() {
+                var similarContent = document.getElementById('similar');
+
+                var request = new XMLHttpRequest();
+                var url = '/movies/' + movieId + '/recommended';
+
+                request.open('GET', url, true);
+
+                request.onreadystatechange = function () {
+                    if (request.readyState === 4 || request.status === 200) {
+                        similarContent.innerHTML = '';
+                        var xmlString = request.responseText;
+                        xmlString = xmlString.replace(new RegExp(' xmlns(:.*?)?=(".*?")'), '');
+                        var parser = new DOMParser();
+                        var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+                        var xPath = '//movie';
+                        var movies = xmlDoc.evaluate(xPath, xmlDoc, null, XPathResult.ANY_TYPE, null);
+
+                        var movie = movies.iterateNext();
+
+                        while (movie) {
+                            // Wrapper div
+                            var wrapper = document.createElement('div');
+                            wrapper.className = "col-lg-3";
+
+                            // Link to Detail
+                            var detailLink = document.createElement('a');
+                            detailLink.href = 'http://localhost:8080/phim/';
+
+                            // Main div for showing movie
+                            var item = document.createElement('div');
+                            item.className = "movie-item mx-auto mb-5 mb-lg-0";
+
+                            // Retrieve ID
+                            var id = xmlDoc.evaluate('id', movie, null, XPathResult.STRING_TYPE, null).stringValue;
+                            detailLink.href += id;
+
+                            // Retrieve poster url
+                            var poster = xmlDoc.evaluate('poster', movie, null, XPathResult.STRING_TYPE, null).stringValue;
+                            var imgTag = document.createElement('img');
+                            imgTag.className = "img-thumbnail mb-3";
+                            imgTag.src = poster;
+                            item.appendChild(imgTag);
+
+                            // Retrieve movie title
+                            var title = xmlDoc.evaluate('title', movie, null, XPathResult.STRING_TYPE, null).stringValue
+                                .toUpperCase();
+                            var h5Tag = document.createElement('h5');
+                            h5Tag.innerText = title;
+                            item.appendChild(h5Tag);
+
+                            detailLink.appendChild(item);
+
+                            wrapper.appendChild(detailLink);
+
+                            similarContent.appendChild(wrapper);
+
+                            movie = movies.iterateNext();
+                        }
                     }
                 };
 

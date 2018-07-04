@@ -1,22 +1,18 @@
 package io.anhkhue.more.services;
 
 import io.anhkhue.more.crawlers.agents.vendors.VendorCrawler;
-import io.anhkhue.more.functions.Similarity;
+import io.anhkhue.more.functions.similarity.Similarity;
+import io.anhkhue.more.mining.cache.AccountRecommendationCache;
 import io.anhkhue.more.models.dto.*;
 import io.anhkhue.more.models.mining.HighVote;
 import io.anhkhue.more.repositories.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -38,13 +34,15 @@ public class MovieService {
     private final LinkRepository linkRepository;
     private final AccountRateMovieRepository accountRateMovieRepository;
 
+    private final MiningService miningService;
+
     public MovieService(Similarity<Movie> movieSimilarity,
                         MovieRepository movieRepository,
                         ActorInMovieRepository actorInMovieRepository,
                         ActorRepository actorRepository,
                         MovieHasCategoryRepository movieHasCategoryRepository,
                         LinkRepository linkRepository,
-                        AccountRateMovieRepository accountRateMovieRepository) {
+                        AccountRateMovieRepository accountRateMovieRepository, MiningService miningService) {
         this.movieSimilarity = movieSimilarity;
         this.movieRepository = movieRepository;
         this.actorInMovieRepository = actorInMovieRepository;
@@ -52,6 +50,7 @@ public class MovieService {
         this.movieHasCategoryRepository = movieHasCategoryRepository;
         this.linkRepository = linkRepository;
         this.accountRateMovieRepository = accountRateMovieRepository;
+        this.miningService = miningService;
     }
 
     public List<Movie> findAll() {
@@ -168,6 +167,9 @@ public class MovieService {
             movieRepository.save(m);
         });
 
+        // Update cached recommendations
+        AccountRecommendationCache.removeNewRated(username, movieId);
+
         return totalRating;
     }
 
@@ -185,6 +187,25 @@ public class MovieService {
 
         highVote.setPercentage(((double) highRate / ratings.size()) * 100);
         return highVote;
+    }
+
+    public List<Movie> getSimilarMoviesByMovieId(int movieId) {
+        List<Movie> movies = new ArrayList<>();
+        Movie movie = movieRepository.findById(movieId).orElse(null);
+
+        if (movie !=null) {
+            movies= miningService.getSimilarMovies(movie);
+        }
+
+        return movies;
+    }
+
+    public PagedListHolder<Movie> getPageFromList(int page, int moviePerPage, List<Movie> movies) {
+        PagedListHolder<Movie> moviePage = new PagedListHolder<>(movies);
+        moviePage.setPage(page - 1);
+        moviePage.setPageSize(moviePerPage);
+
+        return moviePage;
     }
 
     private int existed(Movie newMovie) {

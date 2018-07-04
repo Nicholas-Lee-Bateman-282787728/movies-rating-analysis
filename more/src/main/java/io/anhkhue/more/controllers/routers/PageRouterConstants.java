@@ -14,6 +14,7 @@ interface PageRouterConstants {
         put(Url.DANG_NHAP, Page.DANG_NHAP);
         put(Url.DANG_XUAT, Page.DANG_XUAT);
         put(Url.DANG_KY, Page.DANG_KY);
+        put(Url.DANH_CHO_BAN, Page.DANH_CHO_BAN);
 
         put(Url.CRAWLER_SWITCH, Page.CRAWLER_SWITCH);
     }};
@@ -28,8 +29,10 @@ interface PageRouterConstants {
         String DANG_NHAP = "dang-nhap";
         String DANG_XUAT = "dang-xuat";
         String DANG_KY = "dang-ky";
+        String DANH_CHO_BAN = "danh-cho-ban";
 
         String CRAWLER_SWITCH = "admin/crawler-switch";
+        String VENDOR_MANAGER = "admin/vendor-manager";
     }
 
     interface Page {
@@ -41,7 +44,9 @@ interface PageRouterConstants {
         String DANG_NHAP = "dang-nhap";
         String DANG_XUAT = "trang-chu";
         String DANG_KY = "dang-ky";
+        String DANH_CHO_BAN = "danh-cho-ban";
 
         String CRAWLER_SWITCH = "admin/crawler-switch";
+        String VENDOR_MANAGER = "admin/vendor-manager";
     }
 }

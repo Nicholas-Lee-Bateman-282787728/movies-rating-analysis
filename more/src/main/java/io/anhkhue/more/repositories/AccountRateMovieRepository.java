@@ -9,5 +9,7 @@ public interface AccountRateMovieRepository extends JpaRepository<AccountRateMov
 
     AccountRateMovie findByAccountUsernameAndMovieId(String username, int movieId);
 
+    List<AccountRateMovie> findByAccountUsername(String username);
+
     List<AccountRateMovie> findByMovieId(int movieId);
 }

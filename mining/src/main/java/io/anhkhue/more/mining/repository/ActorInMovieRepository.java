@@ -15,6 +15,8 @@ public interface ActorInMovieRepository extends JpaRepository<ActorInMovie, Inte
 
     List<ActorInMovie> findByMovieId(int movieId);
 
+    List<ActorInMovie> findByActorIdAndMovieIdNot(int actorId, int movieId);
+
     @Query(value = "SELECT aim1.* FROM actor_in_movie aim1 INNER JOIN (SELECT * FROM actor_in_movie WHERE movie_id = :movieId2) aim2 ON aim1.actor_id = aim2.actor_id WHERE aim1.movie_id = :movieId1", nativeQuery = true)
     List<MovieHasCategory> findCommonActors(@Param("movieId1") int movieId1,
                                             @Param("movieId2") int movieId2);

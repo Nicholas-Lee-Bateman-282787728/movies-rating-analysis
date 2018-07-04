@@ -1,7 +1,6 @@
 package io.anhkhue.more.mining.recommendations;
 
-import io.anhkhue.more.mining.repository.AccountRateMovieRepository;
-import io.anhkhue.more.mining.repository.AccountRepository;
+import io.anhkhue.more.mining.repository.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,9 +12,16 @@ public class MovieRecommendationFactory {
     private final AccountRepository accountRepository;
     private final AccountRateMovieRepository accountRateMovieRepository;
 
-    public MovieRecommendationFactory(AccountRepository accountRepository, AccountRateMovieRepository accountRateMovieRepository) {
+    private final MovieHasCategoryRepository movieHasCategoryRepository;
+    private final MovieRepository movieRepository;
+    private  final ActorInMovieRepository actorInMovieRepository;
+
+    public MovieRecommendationFactory(AccountRepository accountRepository, AccountRateMovieRepository accountRateMovieRepository, MovieHasCategoryRepository movieHasCategoryRepository, MovieRepository movieRepository, ActorInMovieRepository actorInMovieRepository) {
         this.accountRepository = accountRepository;
         this.accountRateMovieRepository = accountRateMovieRepository;
+        this.movieHasCategoryRepository = movieHasCategoryRepository;
+        this.movieRepository = movieRepository;
+        this.actorInMovieRepository = actorInMovieRepository;
     }
 
     public MovieRecommendation getInstance(String type) {
@@ -23,7 +29,7 @@ public class MovieRecommendationFactory {
             case RATING:
                 return new MovieRecommendationByRating(accountRepository, accountRateMovieRepository);
             default:
-                return new MovieRecommendationByInfo(movieHasCategoryRepository);
+                return new MovieRecommendationByInfo(movieHasCategoryRepository, movieRepository, actorInMovieRepository);
         }
     }
 }

@@ -3,8 +3,8 @@ package io.anhkhue.more.crawlers.pool;
 import io.anhkhue.more.crawlers.agents.vendors.VendorCrawler;
 import io.anhkhue.more.crawlers.agents.websites.WebsiteCrawler;
 import io.anhkhue.more.models.dto.Movie;
-import io.anhkhue.more.functions.MovieSimilarity;
-import io.anhkhue.more.functions.StringSimilarity;
+import io.anhkhue.more.functions.similarity.movie.SameMoviePossibility;
+import io.anhkhue.more.functions.similarity.string.StringSimilarity;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @Component
 public class CrawledPool {
 
-    private static final MovieSimilarity movieSimilarity = new MovieSimilarity(new StringSimilarity());
+    private static final SameMoviePossibility SAME_MOVIE_POSSIBILITY = new SameMoviePossibility(new StringSimilarity());
 
     private static Collection<Movie> crawledPool = new HashSet<>();
 
@@ -46,7 +46,7 @@ public class CrawledPool {
 
     private static Optional<Movie> existed(Movie movie) {
         for (Movie crawledMovie: crawledPool) {
-            if (movieSimilarity.score(movie, crawledMovie) > 45) {
+            if (SAME_MOVIE_POSSIBILITY.score(movie, crawledMovie) > 45) {
                 return Optional.of(crawledMovie);
             }
         }

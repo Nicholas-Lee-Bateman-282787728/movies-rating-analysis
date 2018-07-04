@@ -1,5 +1,6 @@
-package io.anhkhue.more.functions;
+package io.anhkhue.more.functions.similarity.string;
 
+import io.anhkhue.more.functions.similarity.Similarity;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.springframework.stereotype.Component;
 

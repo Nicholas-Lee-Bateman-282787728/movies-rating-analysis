@@ -1,14 +1,16 @@
-package io.anhkhue.more.functions;
+package io.anhkhue.more.functions.similarity.movie;
 
+import io.anhkhue.more.functions.similarity.Similarity;
+import io.anhkhue.more.functions.similarity.string.StringSimilarity;
 import io.anhkhue.more.models.dto.Movie;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MovieSimilarity implements Similarity<Movie> {
+public class SameMoviePossibility implements Similarity<Movie> {
 
     private final Similarity<String> stringSimilarity;
 
-    public MovieSimilarity(StringSimilarity stringSimilarity) {
+    public SameMoviePossibility(StringSimilarity stringSimilarity) {
         this.stringSimilarity = stringSimilarity;
     }
 

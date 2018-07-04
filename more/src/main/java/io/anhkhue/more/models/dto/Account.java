@@ -40,6 +40,9 @@ public class Account {
     @Column(name = "role")
     private int role;
 
+    @Column(name = "vendor_id")
+    private Integer vendorId;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -13,7 +13,6 @@ public class AccountService {
     public static final int USERNAME_EXISTED = 0;
     public static final int INTERNAL_DATABASE_ERROR = -1;
 
-
     private final AccountRepository repository;
 
     public AccountService(AccountRepository repository) {

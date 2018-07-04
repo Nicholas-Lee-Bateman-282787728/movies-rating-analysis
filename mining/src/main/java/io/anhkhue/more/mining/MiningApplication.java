@@ -3,7 +3,9 @@ package io.anhkhue.more.mining;
 import io.anhkhue.more.mining.function.similarity.account.EuclideanDistance;
 import io.anhkhue.more.mining.function.similarity.account.PearsonCorrelation;
 import io.anhkhue.more.mining.function.similarity.Similarity;
+import io.anhkhue.more.mining.function.similarity.movie.MovieInfoCentric;
 import io.anhkhue.more.mining.model.Account;
+import io.anhkhue.more.mining.model.Movie;
 import io.anhkhue.more.mining.model.MovieHasCategory;
 import io.anhkhue.more.mining.recommendations.MovieRecommendation;
 import io.anhkhue.more.mining.recommendations.MovieRecommendationFactory;
@@ -30,10 +32,23 @@ public class MiningApplication {
 
     @Bean
     @Autowired
-    CommandLineRunner init(MovieHasCategoryRepository movieHasCategoryRepository) {
+    CommandLineRunner init(MovieRecommendationFactory recommendationFactory,
+                           MovieInfoCentric movieInfoCentric,
+                           MovieRepository movieRepository) {
         return args -> {
-            testSameCategories(movieHasCategoryRepository);
+            testInfoCentricSimilarity(recommendationFactory, movieInfoCentric, movieRepository);
         };
+    }
+
+    @SuppressWarnings("unchecked")
+    private void testInfoCentricSimilarity(MovieRecommendationFactory recommendationFactory,
+                                           MovieInfoCentric movieInfoCentric,
+                                           MovieRepository movieRepository) {
+        MovieRecommendation<Movie, Similarity<Movie>> recommendation = recommendationFactory.getInstance(INFO);
+
+        Movie movie = movieRepository.findById(2).orElse(null);
+        Map<Integer, Double> movieRecommendations = recommendation.recommend(movie, movieInfoCentric);
+        movieRecommendations.forEach((k, v) -> movieRepository.findById(k).ifPresent(other -> System.out.println(other.getTitle() + " : " + v)));
     }
 
     private void testSameCategories(MovieHasCategoryRepository movieHasCategoryRepository) {

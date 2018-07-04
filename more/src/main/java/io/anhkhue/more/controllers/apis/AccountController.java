@@ -53,5 +53,4 @@ public class AccountController {
                 return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
         }
     }
-
 }

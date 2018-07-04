@@ -26,4 +26,6 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     Page<Movie> findAll(Pageable pageable);
 
     Page<Movie> findByIsComing(Pageable pageable, boolean isComing);
+
+    List<Movie> findByDirectorLikeAndIdNot(String director, int id);
 }
