@@ -51,3 +51,20 @@ function topRecommendedMovies(total, presenter) {
 
     request.send();
 }
+
+function topSearchMovies(total, presenter, searchValue) {
+    var request = new XMLHttpRequest();
+    var url = '/movies/search/page=1&no=' + total;
+    var params = 'searchValue=' + searchValue;
+
+    request.open('GET', url + '?' + params, true);
+
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 || this.status === 200) {
+            sessionStorage.setItem('searchMovies', request.responseText);
+            presenter.presentByPage(1, 12);
+        }
+    };
+
+    request.send();
+}

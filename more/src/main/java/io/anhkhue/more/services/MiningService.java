@@ -6,15 +6,15 @@ import io.anhkhue.more.functions.similarity.movie.MovieSimilarity;
 import io.anhkhue.more.mining.recommendations.MovieRecommendation;
 import io.anhkhue.more.mining.recommendations.MovieRecommendationFactory;
 import io.anhkhue.more.models.dto.Account;
+import io.anhkhue.more.models.dto.Link;
 import io.anhkhue.more.models.dto.Movie;
 import io.anhkhue.more.models.mining.MovieRecommendationRanking;
 import io.anhkhue.more.repositories.AccountRepository;
+import io.anhkhue.more.repositories.LinkRepository;
 import io.anhkhue.more.repositories.MovieRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,15 +29,20 @@ public class MiningService {
 
     private final MovieSimilarity movieSimilarity;
 
+    private final LinkRepository linkRepository;
+
     public MiningService(MovieRecommendationFactory recommendationFactory,
                          EuclideanDistance euclideanDistance,
                          MovieRepository movieRepository,
-                         AccountRepository accountRepository, MovieSimilarity movieSimilarity) {
+                         AccountRepository accountRepository,
+                         MovieSimilarity movieSimilarity,
+                         LinkRepository linkRepository) {
         this.recommendationFactory = recommendationFactory;
         this.euclideanDistance = euclideanDistance;
         this.movieRepository = movieRepository;
         this.accountRepository = accountRepository;
         this.movieSimilarity = movieSimilarity;
+        this.linkRepository = linkRepository;
     }
 
     public List<Movie> getRecommendationForUser(Account user) {
@@ -86,5 +91,78 @@ public class MiningService {
         return movies;
     }
 
+    public List<Movie> getRankedPredictionForComingMovies(String vendorName) {
+        List<Movie> movieList = getComingMoviesByVendorName(vendorName);
+        List<Movie> topMovies = getTopRatedMovies();
 
+        MovieRecommendationRanking ranking = new MovieRecommendationRanking();
+
+        Map<Integer, Double> miningRanking = new HashMap<>();
+        for (Movie movie : movieList) {
+            for (Movie topMovie : topMovies) {
+                double sim = movieSimilarity.score(movie, topMovie);
+                double totalRank = sim * topMovie.getRating();
+                miningRanking.put(movie.getId(), totalRank);
+            }
+        }
+
+        ranking.setRankings(miningRanking);
+        ranking.sort();
+
+        List<Movie> movies = new ArrayList<>();
+        ranking.getRankings().forEach((k, v) -> movieRepository.findById(k).ifPresent(movies::add));
+
+        return movies;
+    }
+
+    private List<Movie> getComingMoviesByVendorName(String vendorName) {
+        List<Link> links = linkRepository.findBySourceLike(vendorName);
+        return links.stream()
+                    .map(Link::getMovieId)
+                    .map(movieId -> movieRepository.findByIdAndIsComing(movieId, true)
+                                                   .orElse(null))
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+    }
+
+    private List<Movie> getTopRatedMovies() {
+        return movieRepository.findTop5ByOrderByRatingDesc();
+    }
+
+    public List<Movie> getRankingForShowingMovies(String vendorName) {
+        List<Movie> movieList = getShowingMoviesByVendorName(vendorName);
+
+        List<Movie> topMovies = getTopRatedMovies();
+
+        MovieRecommendationRanking ranking = new MovieRecommendationRanking();
+
+        Map<Integer, Double> miningRanking = new HashMap<>();
+        for (Movie movie : movieList) {
+            for (Movie topMovie : topMovies) {
+                double sim = movieSimilarity.score(movie, topMovie);
+                double totalRank = sim * (topMovie.getRating() + movie.getRating());
+                miningRanking.put(movie.getId(), totalRank);
+            }
+        }
+
+        ranking.setRankings(miningRanking);
+        ranking.sort();
+
+        List<Movie> movies = new ArrayList<>();
+        ranking.getRankings().forEach((k, v) -> movieRepository.findById(k).ifPresent(movies::add));
+
+        return movies;
+    }
+
+    private List<Movie> getShowingMoviesByVendorName(String vendorName) {
+        List<Link> links = linkRepository.findBySourceLike(vendorName);
+        return links.stream()
+                    .map(Link::getMovieId)
+                    .map(movieId -> movieRepository.findByIdAndOnCinemaAndIsComing(movieId,
+                                                                                   true,
+                                                                                   false)
+                                                   .orElse(null))
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+    }
 }

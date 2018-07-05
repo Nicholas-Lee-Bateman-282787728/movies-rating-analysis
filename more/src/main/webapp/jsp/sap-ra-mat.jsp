@@ -66,12 +66,12 @@
         <script type="text/javascript">
             // self executing function
             (function () {
-                var pagination = new Pagination(currentPage, 'coming');
+                var pagination = new Pagination(currentPage, 'coming', null);
 
                 pagination.createPagination('pagination');
                 var movieAccessor = new MovieAccessor('coming', currentPage, moviePerPage);
 
-                var moviePresenter = new MoviePresenter('movies', movieAccessor);
+                var moviePresenter = new MoviePresenter('movies', movieAccessor, null);
                 if (sessionStorage.getItem('comingMovies') === null) {
                     topComingMovies(moviePerPage * 10, moviePresenter);
                 } else {

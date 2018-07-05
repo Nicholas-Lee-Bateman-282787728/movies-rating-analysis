@@ -9,7 +9,7 @@
     </xsl:template>
 
     <xsl:template match="ns:vendors">
-        <table class="table vendors">
+        <table id="table-vendor" class="table vendors">
             <thead class="thead-light">
                 <tr>
                     <th scope="col">No.</th>
@@ -18,7 +18,7 @@
                     <th scope="col">Email</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="vendor-table-body">
                 <xsl:for-each select="ns:vendor">
                     <tr>
                         <th scope="row">

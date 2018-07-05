@@ -1,6 +1,7 @@
-function Pagination(currentPage, type) {
+function Pagination(currentPage, type, searchValue) {
     this.currentPage = currentPage;
     this.type = type;
+    this.searchValue = searchValue;
 
     this.paginationId = null;
 
@@ -62,7 +63,7 @@ function Pagination(currentPage, type) {
         }
     };
 
-    this.createPage = function(page) {
+    this.createPage = function (page) {
         var pagination = this;
         var pageLi = document.createElement('li');
         pageLi.className = "page-item";
@@ -74,7 +75,7 @@ function Pagination(currentPage, type) {
             pagination.createPagination(pagination.paginationId);
 
             var movieAccessor = new MovieAccessor(pagination.type, page, 12);
-            var moviePresenter = new MoviePresenter('movies', movieAccessor);
+            var moviePresenter = new MoviePresenter('movies', movieAccessor, pagination.searchValue);
 
             moviePresenter.presentByPage(page, 12);
             document.getElementById("new-movies").scrollIntoView();
@@ -88,7 +89,7 @@ function Pagination(currentPage, type) {
         return pageLi;
     };
 
-    this.createPulp = function(page, pulp) {
+    this.createPulp = function (page, pulp) {
         var pagination = this;
         var pageLi = document.createElement('li');
         pageLi.className = "page-item";
@@ -100,7 +101,7 @@ function Pagination(currentPage, type) {
             pagination.createPagination(pagination.paginationId);
 
             var movieAccessor = new MovieAccessor(pagination.type, page, 12);
-            var moviePresenter = new MoviePresenter('movies', movieAccessor);
+            var moviePresenter = new MoviePresenter('movies', movieAccessor, pagination.searchValue);
 
             moviePresenter.presentByPage(page, 12);
             document.getElementById("new-movies").scrollIntoView();

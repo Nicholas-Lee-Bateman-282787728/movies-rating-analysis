@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>MoRe</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/phim-moi.css" rel="stylesheet">
+  <link href="css/landing-page.css" rel="stylesheet">
+  <link href="css/vendor-manager.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-light bg-light static-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="img/Logo_K.svg" alt="">
+        <span class="web-name">MoRe</span>
+      </a>
+      <div class="d-flex flex-row-reverse">
+        <a class="btn btn-success" href="#">Sign Up</a>
+        <a class="btn text-success" href="#">Sign In</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <table class="table vendors">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col">Tên khách hàng</th>
+              <th scope="col">Số điện thoại</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry</td>
+              <td>the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-md-6">
+        <form id="form-signup" class="form-signin">
+          <div id="inform">
+
+          </div>
+          <label for="username" class="sr-only">Username</label>
+          <input type="text" id="username" name="username" class="form-control" placeholder="Tên tài khoản" required autofocus>
+          <label for="password" class="sr-only">Password</label>
+          <input type="password" id="password" name="password" class="form-control" placeholder="Mật khẩu" required>
+          <label for="re-password" class="sr-only">Re-enter Password</label>
+          <input type="password" id="re-password" class="form-control" placeholder="Nhập lại mật khẩu" required>
+          <label for="name" class="sr-only">Tên khách hàng</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="Tên khách hàng" required autofocus>
+          <label for="address1" class="sr-only">Địa chỉ</label>
+          <input type="text" id="address1" name="address1" class="form-control" placeholder="Địa chỉ" required autofocus>
+          <label for="address2" class="sr-only">Địa chỉ bổ sung</label>
+          <input type="text" id="address2" name="address2" class="form-control" placeholder="Địa chỉ bổ sung" required autofocus>
+          <label for="tel" class="sr-only">Số điện thoại</label>
+          <input type="text" id="tel" name="tel" class="form-control" placeholder="Số điện thoại" required autofocus>
+          <label for="email" class="sr-only">Email</label>
+          <input type="text" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
+          <button class="btn btn-lg btn-success btn-block" type="button" onclick="signUp('form-signup');">
+            Thêm khách hàng
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+          <ul class="list-inline mb-2">
+            <li class="list-inline-item">
+              <a href="#">About</a>
+            </li>
+            <li class="list-inline-item">&sdot;</li>
+            <li class="list-inline-item">
+              <a href="#">Contact</a>
+            </li>
+            <li class="list-inline-item">&sdot;</li>
+            <li class="list-inline-item">
+              <a href="#">Terms of Use</a>
+            </li>
+            <li class="list-inline-item">&sdot;</li>
+            <li class="list-inline-item">
+              <a href="#">Privacy Policy</a>
+            </li>
+          </ul>
+          <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2018. All Rights Reserved.</p>
+        </div>
+        <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item mr-3">
+              <a href="#">
+                <i class="fa fa-facebook fa-2x fa-fw"></i>
+              </a>
+            </li>
+            <li class="list-inline-item mr-3">
+              <a href="#">
+                <i class="fa fa-twitter fa-2x fa-fw"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <i class="fa fa-instagram fa-2x fa-fw"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <!-- <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+
+</body>
+
+</html>

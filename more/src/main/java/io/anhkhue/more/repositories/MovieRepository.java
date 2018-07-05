@@ -19,11 +19,17 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     Collection<Movie> findByDirectorAndYear(String director, BigInteger year);
 
-    Set<Movie> findByOnCinema(boolean onCinema);
-
     Set<Movie> findByOnCinemaAndIsComing(boolean onCinema, boolean isComing);
 
     Page<Movie> findAll(Pageable pageable);
 
     Page<Movie> findByIsComing(Pageable pageable, boolean isComing);
+
+    Page<Movie> findByTitleLike(Pageable pageable, String searchValue);
+
+    List<Movie> findTop5ByOrderByRatingDesc();
+
+    Optional<Movie> findByIdAndIsComing(int id, boolean isComing);
+
+    Optional<Movie> findByIdAndOnCinemaAndIsComing(int id, boolean onCinema, boolean isComing);
 }

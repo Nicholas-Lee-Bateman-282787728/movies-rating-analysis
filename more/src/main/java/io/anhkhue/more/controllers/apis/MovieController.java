@@ -65,6 +65,18 @@ public class MovieController {
         return ResponseEntity.status(OK).body(movies);
     }
 
+    @GetMapping(value = "/movies/search/page={page}&no={number}", produces = APPLICATION_XML_VALUE)
+    public ResponseEntity searchMoviesByTitle(@PathVariable String page,
+                                              @PathVariable String number,
+                                              @RequestParam String searchValue) {
+        Page<Movie> moviePage = movieService.searchMoviesByTitle(Integer.parseInt(page),
+                                                                 Integer.parseInt(number),
+                                                                 searchValue);
+        Movies movies = new Movies();
+        movies.setMovie(moviePage.getContent());
+        return ResponseEntity.status(OK).body(movies);
+    }
+
     @PostMapping(value = "/movies/{id}/rate")
     public ResponseEntity rateMovie(HttpServletRequest request,
                                     @PathVariable String id,

@@ -8,4 +8,6 @@ import java.util.List;
 public interface LinkRepository extends JpaRepository<Link, String> {
 
     List<Link> findByMovieId(int movieId);
+
+    List<Link> findBySourceLike(String source);
 }

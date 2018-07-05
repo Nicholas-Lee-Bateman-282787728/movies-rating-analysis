@@ -129,7 +129,7 @@
                     <c:if test="${user.role == 2}">
                         <div class="row">
                             <div class="col-lg-6">
-                                <a href="/danh-cho-ban">
+                                <a href="/vendor/ranking-report">
                                     <div class="features-icons-item mx-auto mb-0 mb-lg-3">
                                         <div class="features-icons-icon d-flex">
                                             <i class="icon-graph m-auto text-success"></i>
@@ -139,7 +139,7 @@
                                 </a>
                             </div>
                             <div class="col-lg-6">
-                                <a href="/phim-moi">
+                                <a href="/vendor/coming-prediction">
                                     <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                                         <div class="features-icons-icon d-flex">
                                             <i class="icon-calculator m-auto text-success"></i>
@@ -198,7 +198,7 @@
             (function () {
                 var movieAccessor = new MovieAccessor('top', 1, 8);
 
-                var moviePresenter = new MoviePresenter('movies', movieAccessor);
+                var moviePresenter = new MoviePresenter('movies', movieAccessor, null);
                 if (sessionStorage.getItem('topMovies') === null) {
                     topNewMovies(12 * 10, moviePresenter);
                 } else {

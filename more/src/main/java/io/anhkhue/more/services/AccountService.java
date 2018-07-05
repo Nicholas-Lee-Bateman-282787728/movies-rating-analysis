@@ -36,4 +36,11 @@ public class AccountService {
             }
         }
     }
+
+    public void save(Account account) {
+        repository.findByUsername(account.getUsername()).ifPresent(acc -> {
+            acc.setVendorId(acc.getVendorId());
+            repository.save(acc);
+        });
+    }
 }

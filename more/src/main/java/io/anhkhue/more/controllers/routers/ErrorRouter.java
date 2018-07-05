@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ErrorRouter implements ErrorController {
 
-    @RequestMapping("/error")
+    @RequestMapping("/errors")
     public ModelAndView errorPage(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         if (status != null) {
@@ -28,6 +28,11 @@ public class ErrorRouter implements ErrorController {
         }
 
         return new ModelAndView("/errors/error");
+    }
+
+    @RequestMapping("*/errors/unauthorized")
+    public ModelAndView unauthorized() {
+        return new ModelAndView("/errors/unauthorized");
     }
 
     @Override

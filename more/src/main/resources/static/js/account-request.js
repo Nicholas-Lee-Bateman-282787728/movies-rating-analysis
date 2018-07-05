@@ -36,9 +36,7 @@ function signUp(formId) {
 
     var filled = true;
     var requiredFields = document.querySelectorAll("[required]");
-    console.log(requiredFields.length);
     for (var i = 0; i < requiredFields.length; i++) {
-        console.log(requiredFields[i]);
         if (requiredFields[i].value === '') {
             requiredFields[i].focus();
             filled = false;

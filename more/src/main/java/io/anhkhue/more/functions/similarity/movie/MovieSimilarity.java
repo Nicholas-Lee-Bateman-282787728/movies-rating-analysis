@@ -24,7 +24,9 @@ public class MovieSimilarity implements Similarity<Movie> {
 
         // Similar Categories Score
         Long categoryScore = movieHasCategoryRepository.countCommonCategories(movie1.getId(), movie2.getId());
-        totalScore += categoryScore;
+        if (categoryScore != null) {
+            totalScore += categoryScore;
+        }
 
         // Similar Directors Score
         String movie1Director = movie1.getDirector();

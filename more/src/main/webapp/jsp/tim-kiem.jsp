@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Dành cho bạn</title>
+        <title>Phim mới</title>
         <link rel="icon" href="/img/Logo_K.svg">
         <!-- Bootstrap core CSS -->
         <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -23,6 +23,7 @@
     </head>
     <body>
         <script>
+            var searchValue = '${requestScope.SEARCH_VALUE}';
             var totalPages = parseInt('${requestScope.TOTAL_PAGES}');
             var currentPage = 1;
             var moviePerPage = 12;
@@ -39,7 +40,7 @@
         <!-- Movies -->
         <section class="movies text-center bg-light">
             <div class="container">
-                <h2 id="new-movies" class="mb-5">Có thể bạn sẽ thích</h2>
+                <h2 id="new-movies" class="mb-5">Kêt quả tìm kiếm</h2>
                 <%-- Movie List --%>
                 <div id="movies">
 
@@ -65,16 +66,19 @@
         <script type="text/javascript">
             // self executing function
             (function () {
-                var pagination = new Pagination(currentPage, 'recommended', null);
+                if (totalPages !== 0) {
+                    var pagination = new Pagination(currentPage, 'search', searchValue);
 
-                pagination.createPagination('pagination');
-                var movieAccessor = new MovieAccessor('recommended', currentPage, moviePerPage);
+                    pagination.createPagination('pagination');
+                    var movieAccessor = new MovieAccessor('search', currentPage, moviePerPage);
 
-                var moviePresenter = new MoviePresenter('movies', movieAccessor, null);
-                if (sessionStorage.getItem('recommendedMovies') === null) {
-                    topRecommendedMovies(moviePerPage * 10, moviePresenter);
+                    var moviePresenter = new MoviePresenter('movies', movieAccessor, searchValue);
+                    topSearchMovies(moviePerPage * 10, moviePresenter, searchValue);
                 } else {
-                    moviePresenter.presentByPage(currentPage, moviePerPage);
+                    var showSection = document.getElementById('movies');
+                    var inform = document.createElement('h4');
+                    inform.innerHTML = 'Không tìm thấy kết quả nào';
+                    showSection.appendChild(inform);
                 }
             })();
         </script>

@@ -18,11 +18,12 @@ function MovieAccessor(type, page, moviesPerPage) {
         this.movies = this.xmlDoc.evaluate(xPath, this.xmlDoc, null, XPathResult.ANY_TYPE, null);
     };
 
-    this.getFromServer = function (presenter) {
+    this.getFromServer = function (presenter, searchValue) {
         var accessor = this;
 
         var request = new XMLHttpRequest();
         var url = '/movies/' + this.type + '/page=' + this.page + '&no=' + this.moviesPerPage;
+        var params = 'searchValue=' + searchValue;
 
         request.onreadystatechange = function () {
             if (this.readyState === 4 || this.status === 200) {
@@ -39,6 +40,10 @@ function MovieAccessor(type, page, moviesPerPage) {
         };
 
         request.open('GET', url, true);
-        request.send();
+        if (searchValue === null) {
+            request.send();
+        } else {
+            request.send(params);
+        }
     };
 }

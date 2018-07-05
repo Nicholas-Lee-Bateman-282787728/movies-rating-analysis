@@ -41,15 +41,6 @@
   border-top-right-radius: 0;
 }
 
-#message {
-    margin-top: 10%;
-    margin-bottom: 30%;
-}
-
 button {
   margin-top: 5%;
-}
-
-.custom-file-input ~ .custom-file-label::after {
-    content: "Button Text";
 }

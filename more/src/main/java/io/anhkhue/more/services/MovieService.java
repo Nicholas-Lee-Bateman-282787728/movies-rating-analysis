@@ -112,6 +112,14 @@ public class MovieService {
         return movieRepository.findByIsComing(pageable, Boolean.TRUE);
     }
 
+    public Page<Movie> searchMoviesByTitle(int page, int moviePerPage, String searchValue) {
+        searchValue = "%" + searchValue + "%";
+        int actualPage = page - 1;
+        Pageable pageable = PageRequest.of(actualPage, moviePerPage);
+
+        return movieRepository.findByTitleLike(pageable, searchValue);
+    }
+
     public Integer save(Movie movie) {
         int result = UNABLE_TO_SAVE;
         try {
@@ -193,8 +201,8 @@ public class MovieService {
         List<Movie> movies = new ArrayList<>();
         Movie movie = movieRepository.findById(movieId).orElse(null);
 
-        if (movie !=null) {
-            movies= miningService.getSimilarMovies(movie);
+        if (movie != null) {
+            movies = miningService.getSimilarMovies(movie);
         }
 
         return movies;

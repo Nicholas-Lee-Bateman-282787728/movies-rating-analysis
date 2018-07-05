@@ -1,5 +1,6 @@
-function MoviePresenter(presentAreaId, accessor) {
+function MoviePresenter(presentAreaId, accessor, searchValue) {
     this.presentArea = document.getElementById(presentAreaId);
+    this.searchValue = searchValue;
 
     this.present = function () {
         this.presentArea.innerHTML = '';
@@ -69,7 +70,7 @@ function MoviePresenter(presentAreaId, accessor) {
             accessor.getFromStorage();
             this.present();
         } else {
-            accessor.getFromServer(this);
+            accessor.getFromServer(this, searchValue);
         }
     };
 }
