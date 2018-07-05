@@ -20,5 +20,4 @@ public class VendorWrapper {
     private String address2;
     private String tel;
     private String email;
-    private MultipartFile logo;
 }

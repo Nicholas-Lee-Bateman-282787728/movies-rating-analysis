@@ -78,14 +78,6 @@
                             <label for="email" class="sr-only">Email</label>
                             <input type="text" id="email" name="email" class="form-control" placeholder="Email" required
                                    autofocus>
-                            <div class="custom-file" id="customFile" lang="es">
-                                <input type="file" class="custom-file-input" id="logo"
-                                       name="logo"
-                                       aria-describedby="fileHelp">
-                                <label class="custom-file-label" for="logo">
-                                    Chọn logo...
-                                </label>
-                            </div>
                             <button class="btn btn-lg btn-success btn-block" type="button"
                                     onclick="addVendor('form-signup');">
                                 Thêm khách hàng

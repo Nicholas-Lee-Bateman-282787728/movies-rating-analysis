@@ -4,10 +4,14 @@ import io.anhkhue.more.crawlers.utils.JaxbUtils;
 import io.anhkhue.more.mining.cache.AccountRecommendationCache;
 import io.anhkhue.more.models.constants.RoleConstants;
 import io.anhkhue.more.models.dto.Account;
+import io.anhkhue.more.models.dto.AccountRateMovie;
+import io.anhkhue.more.models.dto.Link;
 import io.anhkhue.more.models.dto.Movie;
 import io.anhkhue.more.models.mining.report.Report;
 import io.anhkhue.more.models.mining.report.Vendor;
 import io.anhkhue.more.models.mining.report.Vendors;
+import io.anhkhue.more.repositories.AccountRateMovieRepository;
+import io.anhkhue.more.repositories.LinkRepository;
 import io.anhkhue.more.services.CrawlService;
 import io.anhkhue.more.services.MiningService;
 import io.anhkhue.more.services.MovieService;
@@ -47,11 +51,22 @@ public class PageRouter {
 
     private final VendorService vendorService;
 
-    public PageRouter(MovieService movieService, JaxbUtils jaxbUtils, MiningService miningService, VendorService vendorService) {
+    private final LinkRepository linkRepository;
+
+    private final AccountRateMovieRepository accountRateMovieRepository;
+
+    public PageRouter(MovieService movieService,
+                      JaxbUtils jaxbUtils,
+                      MiningService miningService,
+                      VendorService vendorService,
+                      LinkRepository linkRepository,
+                      AccountRateMovieRepository accountRateMovieRepository) {
         this.movieService = movieService;
         this.jaxbUtils = jaxbUtils;
         this.miningService = miningService;
         this.vendorService = vendorService;
+        this.linkRepository = linkRepository;
+        this.accountRateMovieRepository = accountRateMovieRepository;
     }
 
     @GetMapping(value = {INDEX, TRANG_CHU})
@@ -83,6 +98,13 @@ public class PageRouter {
         Account account = (Account) session.getAttribute("USER");
         if (account != null) {
             List<Movie> movieList = null;
+
+            List<AccountRateMovie> ratings = accountRateMovieRepository.findByAccountUsername(account.getUsername());
+
+            if (ratings.isEmpty()) {
+                return new ModelAndView("errors/no-rating");
+            }
+
             if (AccountRecommendationCache.getRecommendationMap()
                                           .containsKey(account.getUsername())) {
                 movieList = AccountRecommendationCache.getRecommendationMap()
@@ -181,15 +203,24 @@ public class PageRouter {
 
         if (account != null
             && account.getRole() == RoleConstants.VENDOR) {
-            Report report = vendorService.getPredictionReport(account.getVendorId());
 
-            String xmlString = jaxbUtils.marshall(report);
-            StreamSource xmlStreamSource = new StreamSource(new StringReader(xmlString));
-            byte[] content = vendorService.generatePdf(xmlStreamSource);
-            response.setContentType("application/pdf");
-            response.setContentLength(content.length);
-            response.getOutputStream().write(content);
-            response.getOutputStream().flush();
+            Vendor vendor = vendorService.findById(account.getVendorId());
+            List<Link> links = linkRepository.findBySourceLike(vendor.getName());
+
+            if (links.isEmpty()) {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("errors/no-movies-to-report");
+                requestDispatcher.forward(request, response);
+            } else {
+                Report report = vendorService.getPredictionReport(account.getVendorId());
+
+                String xmlString = jaxbUtils.marshall(report);
+                StreamSource xmlStreamSource = new StreamSource(new StringReader(xmlString));
+                byte[] content = vendorService.generatePdf(xmlStreamSource);
+                response.setContentType("application/pdf");
+                response.setContentLength(content.length);
+                response.getOutputStream().write(content);
+                response.getOutputStream().flush();
+            }
         } else {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("errors/unauthorized");
             requestDispatcher.forward(request, response);
@@ -208,15 +239,25 @@ public class PageRouter {
 
         if (account != null
             && account.getRole() == RoleConstants.VENDOR) {
-            Report report = vendorService.getRankingReport(account.getVendorId());
 
-            String xmlString = jaxbUtils.marshall(report);
-            StreamSource xmlStreamSource = new StreamSource(new StringReader(xmlString));
-            byte[] content = vendorService.generatePdf(xmlStreamSource);
-            response.setContentType("application/pdf");
-            response.setContentLength(content.length);
-            response.getOutputStream().write(content);
-            response.getOutputStream().flush();
+            Vendor vendor = vendorService.findById(account.getVendorId());
+            List<Link> links = linkRepository.findBySourceLike(vendor.getName());
+
+            if (links.isEmpty()) {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("errors/no-movies-to-report");
+                requestDispatcher.forward(request, response);
+            } else {
+                Report report = vendorService.getRankingReport(account.getVendorId());
+
+                String xmlString = jaxbUtils.marshall(report);
+                StreamSource xmlStreamSource = new StreamSource(new StringReader(xmlString));
+                byte[] content = vendorService.generatePdf(xmlStreamSource);
+                response.setContentType("application/pdf");
+                response.setContentLength(content.length);
+                response.getOutputStream().write(content);
+                response.getOutputStream().flush();
+            }
+
         } else {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("errors/unauthorized");
             requestDispatcher.forward(request, response);

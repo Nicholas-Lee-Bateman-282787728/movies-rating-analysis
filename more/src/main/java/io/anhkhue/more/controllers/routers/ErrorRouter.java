@@ -35,6 +35,11 @@ public class ErrorRouter implements ErrorController {
         return new ModelAndView("/errors/unauthorized");
     }
 
+    @RequestMapping("*/errors/no-movies-to-report")
+    public ModelAndView noMovieToReport() {
+        return new ModelAndView("/errors/no-movies-to-report");
+    }
+
     @Override
     public String getErrorPath() {
         return "/error";

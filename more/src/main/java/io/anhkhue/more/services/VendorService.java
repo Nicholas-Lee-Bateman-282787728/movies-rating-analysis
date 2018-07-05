@@ -74,26 +74,21 @@ public class VendorService {
                                  .role(2)
                                  .build();
 
+        Vendor vendor = Vendor.builder()
+                              .name(vendorWrapper.getName())
+                              .address1(vendorWrapper.getAddress1())
+                              .address2(vendorWrapper.getAddress2())
+                              .email(vendorWrapper.getEmail())
+                              .image("")
+                              .tel(vendorWrapper.getTel())
+                              .build();
+        vendorRepository.save(vendor);
+        vendorRepository.flush();
+
+        int newId = vendor.getId();
+
+        account.setVendorId(newId);
         int status = accountService.signUp(account);
-
-        if (status == AccountService.CREATED) {
-            Vendor vendor = Vendor.builder()
-                                  .name(vendorWrapper.getName())
-                                  .address1(vendorWrapper.getAddress1())
-                                  .address2(vendorWrapper.getAddress2())
-                                  .email(vendorWrapper.getEmail())
-                                  .image(vendorWrapper.getLogo().getName())
-                                  .tel(vendorWrapper.getTel())
-                                  .build();
-            vendorRepository.save(vendor);
-            vendorRepository.flush();
-            int newId = vendor.getId();
-
-            account.setVendorId(newId);
-            accountService.save(account);
-
-            return newId;
-        }
 
         return status;
     }
