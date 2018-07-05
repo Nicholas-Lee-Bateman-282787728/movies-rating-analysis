@@ -5,7 +5,6 @@ import io.anhkhue.more.mining.cache.AccountRecommendationCache;
 import io.anhkhue.more.models.constants.RoleConstants;
 import io.anhkhue.more.models.dto.Account;
 import io.anhkhue.more.models.dto.Movie;
-import io.anhkhue.more.models.mining.report.Movies;
 import io.anhkhue.more.models.mining.report.Report;
 import io.anhkhue.more.models.mining.report.Vendor;
 import io.anhkhue.more.models.mining.report.Vendors;
@@ -32,10 +31,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
 import java.io.StringReader;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static io.anhkhue.more.controllers.routers.PageRouterConstants.ROUTER;
 import static io.anhkhue.more.controllers.routers.PageRouterConstants.Url.*;
@@ -185,36 +181,7 @@ public class PageRouter {
 
         if (account != null
             && account.getRole() == RoleConstants.VENDOR) {
-            Vendor vendor = vendorService.findById(account.getVendorId());
-
-            List<Movie> movieList = miningService.getRankedPredictionForComingMovies(vendor.getName());
-
-            List<io.anhkhue.more.models.mining.report.Movie> reportMovies = movieList.stream()
-                                                                                     .map(movie -> io.anhkhue.more.models.mining.report.Movie
-                                                                                             .builder()
-                                                                                             // Uppercase first letter
-                                                                                             .title(movie.getTitle().substring(0, 1).toUpperCase() + movie.getTitle().substring(1))
-                                                                                             .director(movie.getDirector())
-                                                                                             .year(movie.getYear())
-                                                                                             .build())
-                                                                                     .collect(Collectors.toList());
-
-
-            io.anhkhue.more.models.mining.report.Movies movies = Movies.builder()
-                                                                       .movie(reportMovies)
-                                                                       .build();
-
-            YearMonth currentYearMonth = YearMonth.now();
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-yyyy");
-            String reportDate = currentYearMonth.format(formatter);
-
-            Report report = Report.builder()
-                                  .movies(movies)
-                                  .vendor(vendor)
-                                  .date(reportDate)
-                                  .logo("images/Logo_K.png")
-                                  .build();
+            Report report = vendorService.getPredictionReport(account.getVendorId());
 
             String xmlString = jaxbUtils.marshall(report);
             StreamSource xmlStreamSource = new StreamSource(new StringReader(xmlString));
@@ -241,36 +208,7 @@ public class PageRouter {
 
         if (account != null
             && account.getRole() == RoleConstants.VENDOR) {
-            Vendor vendor = vendorService.findById(account.getVendorId());
-
-            List<Movie> movieList = miningService.getRankingForShowingMovies(vendor.getName());
-
-            List<io.anhkhue.more.models.mining.report.Movie> reportMovies = movieList.stream()
-                                                                                     .map(movie -> io.anhkhue.more.models.mining.report.Movie
-                                                                                             .builder()
-                                                                                             // Uppercase first letter
-                                                                                             .title(movie.getTitle().substring(0, 1).toUpperCase() + movie.getTitle().substring(1))
-                                                                                             .director(movie.getDirector())
-                                                                                             .year(movie.getYear())
-                                                                                             .build())
-                                                                                     .collect(Collectors.toList());
-
-
-            io.anhkhue.more.models.mining.report.Movies movies = Movies.builder()
-                                                                       .movie(reportMovies)
-                                                                       .build();
-
-            YearMonth currentYearMonth = YearMonth.now();
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-yyyy");
-            String reportDate = currentYearMonth.format(formatter);
-
-            Report report = Report.builder()
-                                  .movies(movies)
-                                  .vendor(vendor)
-                                  .date(reportDate)
-                                  .logo("images/Logo_K.png")
-                                  .build();
+            Report report = vendorService.getRankingReport(account.getVendorId());
 
             String xmlString = jaxbUtils.marshall(report);
             StreamSource xmlStreamSource = new StreamSource(new StringReader(xmlString));

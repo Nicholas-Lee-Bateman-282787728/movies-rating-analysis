@@ -9,11 +9,11 @@
             <div class="container">
                 <a class="navbar-brand" href="/">
                     <img src="img/Logo_K.svg" alt="">
-                    <span class="web-name">MoRe</span>
+                    <span class="web-name">AK Phim</span>
                 </a>
                 <div class="d-flex flex-row-reverse">
                     <c:if test="${not empty user}">
-                        <a class="btn btn-success" href="/dang-xuat">Đăng xuất</a>
+                        <a class="btn btn-light" href="/dang-xuat">Đăng xuất</a>
                         <a class="btn text-success" href="#">
                                 ${user.lastName} ${user.middleName} ${user.firstName}
                         </a>

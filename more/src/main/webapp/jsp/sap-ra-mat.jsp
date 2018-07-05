@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Phim mới</title>
+        <title>Sắp ra mắt</title>
         <link rel="icon" href="/img/Logo_K.svg">
         <!-- Bootstrap core CSS -->
         <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@
 
         <!-- Masthead -->
         <jsp:include page="fragments/masthead.jsp">
-            <jsp:param name="adQuote" value="Luôn cập nhật các tác phẩm điện ảnh mới nhất"/>
+            <jsp:param name="adQuote" value="Sẵn sàng cho các bộ phim hấp dẫn sắp được ra mắt"/>
         </jsp:include>
 
         <!-- Movies -->

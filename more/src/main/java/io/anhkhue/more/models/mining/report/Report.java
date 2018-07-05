@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.*;
 // JAXB
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+        "type",
         "logo",
         "date",
         "vendor",
@@ -23,6 +24,8 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "report")
 public class Report {
 
+    @XmlElement(name = "type", required = true)
+    private String type;
     @XmlElement(name = "logo", required = true)
     private String logo;
     @XmlElement(name = "date", required = true)

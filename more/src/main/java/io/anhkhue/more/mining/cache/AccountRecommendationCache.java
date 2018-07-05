@@ -29,4 +29,8 @@ public class AccountRecommendationCache {
             recommendationMap.put(username, movieList);
         }
     }
+
+    public static void clearCache() {
+        recommendationMap = new HashMap<>();
+    }
 }

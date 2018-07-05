@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>MoRe</title>
+        <title>AK Phim</title>
         <link rel="icon" href="/img/Logo_K.svg">
 
         <!-- Bootstrap core CSS -->

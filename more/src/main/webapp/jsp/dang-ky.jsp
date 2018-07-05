@@ -25,7 +25,7 @@
     <body class="text-center">
         <form id="form-signup" class="form-signin">
             <img class="mb-4" src="/img/Logo_K.svg" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 font-weight-normal"><span class="web-name">MoRe</span></h1>
+            <h1 class="h3 mb-3 font-weight-normal"><span class="web-name">AK Phim</span></h1>
             <div id="inform">
 
             </div>

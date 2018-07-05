@@ -5,6 +5,7 @@ import io.anhkhue.more.crawlers.agents.CrawlerFactory;
 import io.anhkhue.more.crawlers.pool.CrawledPool;
 import io.anhkhue.more.crawlers.utils.StringConverter;
 import io.anhkhue.more.crawlers.validators.SchemaValidator;
+import io.anhkhue.more.mining.cache.AccountRecommendationCache;
 import io.anhkhue.more.models.dao.ActorInMovieDAO;
 import io.anhkhue.more.models.dao.MovieHasCategoryDAO;
 import io.anhkhue.more.models.dto.Actor;
@@ -71,7 +72,7 @@ public class CrawlService {
 
         Collection<Movie> movies = filterMovies(CrawledPool.getCrawledPool());
 
-        for (Movie movie: movies) {
+        for (Movie movie : movies) {
             // Save movie
             int idStatus = movieService.save(movie);
             movie.setId(idStatus);
@@ -85,8 +86,8 @@ public class CrawlService {
                      });
             }
             // Save actors
-            for (String actorName: movie.getActors()
-                                        .getActor()) {
+            for (String actorName : movie.getActors()
+                                         .getActor()) {
                 Actor actor = Actor.builder()
                                    .fullName(actorName)
                                    .build();
@@ -96,8 +97,8 @@ public class CrawlService {
                 actorInMovieDAO.save(actor.getId(), movie.getId());
             }
             // Save movie_has_category
-            for (Category category: movie.getCategories()
-                                         .getCategory()) {
+            for (Category category : movie.getCategories()
+                                          .getCategory()) {
                 String categoryName = category.getCategoryName();
                 movieHasCategoryDAO.save(movie.getId(), categoryName);
             }
@@ -110,10 +111,10 @@ public class CrawlService {
     private Collection<Movie> filterMovies(Collection<Movie> rawMovies) {
         Collection<Movie> movies = new ArrayList<>();
 
-        for (Movie movie: rawMovies) {
+        for (Movie movie : rawMovies) {
             movie.setView(0);
             movie.setImportedDate(System.currentTimeMillis());
-            for (Category category: movie.getCategories().getCategory()) {
+            for (Category category : movie.getCategories().getCategory()) {
                 String categoryName = category.getCategoryName();
                 categoryName = stringConverter.normalizeVietnamese(categoryName);
                 for (int i = 0; i < normalizedArray.length; i++) {
@@ -164,6 +165,8 @@ public class CrawlService {
                     log.info("Next crawling will start on : " + nextWeek.getDayOfMonth()
                              + "-" + nextWeek.getMonthValue()
                              + "-" + nextWeek.getYear());
+                    log.info("Clearing cached recommendations.");
+                    AccountRecommendationCache.clearCache();
                 } catch (XMLStreamException | InstantiationException | IOException | IllegalAccessException e) {
                     log.info(this.getClass().getSimpleName() + "_" + e.getClass().getSimpleName() + ": " + e.getMessage());
                 }

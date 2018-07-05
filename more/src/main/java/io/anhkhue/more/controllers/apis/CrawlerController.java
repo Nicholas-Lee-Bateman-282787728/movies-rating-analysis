@@ -18,7 +18,6 @@ public class CrawlerController {
 
     @PostMapping("/admin/crawler")
     public ResponseEntity handleCrawlers(@RequestParam String status) {
-        System.out.println(status);
         boolean turnedOn = status.equals("true");
         crawlService.controlCrawlers(turnedOn);
         if (CrawlService.isCrawling) {
