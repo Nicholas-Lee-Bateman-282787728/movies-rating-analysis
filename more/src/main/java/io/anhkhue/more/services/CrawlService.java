@@ -11,6 +11,9 @@ import io.anhkhue.more.models.dao.MovieHasCategoryDAO;
 import io.anhkhue.more.models.dto.Actor;
 import io.anhkhue.more.models.dto.Category;
 import io.anhkhue.more.models.dto.Movie;
+import io.anhkhue.more.repositories.ActorInMovieRepository;
+import io.anhkhue.more.repositories.MovieHasCategoryRepository;
+import io.anhkhue.more.repositories.MovieRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +27,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -45,23 +49,29 @@ public class CrawlService {
 
     private final ActorService actorService;
     private final MovieService movieService;
+    private final MovieRepository movieRepository;
     private final LinkService linkService;
     private final ActorInMovieDAO actorInMovieDAO;
+    private final ActorInMovieRepository actorInMovieRepository;
     private final MovieHasCategoryDAO movieHasCategoryDAO;
+    private final MovieHasCategoryRepository movieHasCategoryRepository;
 
     private final SchemaValidator schemaValidator;
 
     private final StringConverter stringConverter;
 
-    public CrawlService(CrawlerFactory crawlerFactory, ActorService actorService, MovieService movieService, LinkService linkService,
-                        ActorInMovieDAO actorInMovieDAO, MovieHasCategoryDAO movieHasCategoryDAO,
-                        SchemaValidator schemaValidator, StringConverter stringConverter) {
+    public CrawlService(CrawlerFactory crawlerFactory, ActorService actorService, MovieService movieService, MovieRepository movieRepository, LinkService linkService,
+                        ActorInMovieDAO actorInMovieDAO, ActorInMovieRepository actorInMovieRepository, MovieHasCategoryDAO movieHasCategoryDAO,
+                        MovieHasCategoryRepository movieHasCategoryRepository, SchemaValidator schemaValidator, StringConverter stringConverter) {
         this.crawlerFactory = crawlerFactory;
         this.actorService = actorService;
         this.movieService = movieService;
+        this.movieRepository = movieRepository;
         this.linkService = linkService;
         this.actorInMovieDAO = actorInMovieDAO;
+        this.actorInMovieRepository = actorInMovieRepository;
         this.movieHasCategoryDAO = movieHasCategoryDAO;
+        this.movieHasCategoryRepository = movieHasCategoryRepository;
         this.schemaValidator = schemaValidator;
         this.stringConverter = stringConverter;
     }

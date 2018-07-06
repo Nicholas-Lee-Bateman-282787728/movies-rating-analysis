@@ -10,11 +10,16 @@ function MovieAccessor(type, page, moviesPerPage) {
         var moviesFromStorage = sessionStorage.getItem(this.type + 'Movies');
 
         var parser = new DOMParser();
-        var xmlString = moviesFromStorage.replace(new RegExp(' xmlns(:.*?)?=(".*?")'), '');
+        // var xmlString = moviesFromStorage.replace(new RegExp(' xmlns(:.*?)?=(".*?")'), '');
+        var xmlString = moviesFromStorage;
         this.xmlDoc = parser.parseFromString(xmlString, "text/xml");
 
-        var xPath = '//movie[position()>' + (this.moviesPerPage * (this.page - 1))
-            + ' and position()<' + ((this.moviesPerPage * this.page) + 1) + ' ]';
+        // var xPath = '//movie[position()>' + (this.moviesPerPage * (this.page - 1))
+        //     + ' and position()<' + ((this.moviesPerPage * this.page) + 1) + ' ]';
+
+        var xPath = "//*[local-name()='movie' and position()>" + (this.moviesPerPage * (this.page - 1))
+            + " and position()<" + ((this.moviesPerPage * this.page) + 1) + ']';
+
         this.movies = this.xmlDoc.evaluate(xPath, this.xmlDoc, null, XPathResult.ANY_TYPE, null);
     };
 
@@ -29,11 +34,11 @@ function MovieAccessor(type, page, moviesPerPage) {
             if (this.readyState === 4 || this.status === 200) {
                 presenter.presentArea.innerHTML = '';
                 var xmlString = request.responseText;
-                xmlString = xmlString.replace(new RegExp(' xmlns(:.*?)?=(".*?")'), '');
+                // xmlString = xmlString.replace(new RegExp(' xmlns(:.*?)?=(".*?")'), '');
                 var parser = new DOMParser();
                 accessor.xmlDoc = parser.parseFromString(xmlString, "text/xml");
 
-                var xPath = "//movie";
+                var xPath = "//*[local-name()='movie']";
                 accessor.movies = accessor.xmlDoc.evaluate(xPath, accessor.xmlDoc, null, XPathResult.ANY_TYPE, null);
                 presenter.present();
             }

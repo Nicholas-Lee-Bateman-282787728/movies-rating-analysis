@@ -16,8 +16,8 @@ public abstract class WebsiteCrawler implements Crawler {
 
     @Override
     public void crawlMovieCollection() {
-        crawlNewMovies();
-        crawlMoviesWithPagination();
+//        crawlNewMovies();
+//        crawlMoviesWithPagination();
     }
 
     private void crawlNewMovies() {

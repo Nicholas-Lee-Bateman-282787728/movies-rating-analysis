@@ -29,18 +29,18 @@ function MoviePresenter(presentAreaId, accessor, searchValue) {
             item.className = "movie-item mx-auto mb-5 mb-lg-0";
 
             // Retrieve ID
-            var id = accessor.xmlDoc.evaluate('id', movie, null, XPathResult.STRING_TYPE, null).stringValue;
+            var id = accessor.xmlDoc.evaluate("*[local-name()='id']", movie, null, XPathResult.STRING_TYPE, null).stringValue;
             detailLink.href += id;
 
             // Retrieve poster url
-            var poster = accessor.xmlDoc.evaluate('poster', movie, null, XPathResult.STRING_TYPE, null).stringValue;
+            var poster = accessor.xmlDoc.evaluate("*[local-name()='poster']", movie, null, XPathResult.STRING_TYPE, null).stringValue;
             var imgTag = document.createElement('img');
             imgTag.className = "img-thumbnail mb-3";
             imgTag.src = poster;
             item.appendChild(imgTag);
 
             // Retrieve movie title
-            var title = accessor.xmlDoc.evaluate('title', movie, null, XPathResult.STRING_TYPE, null).stringValue
+            var title = accessor.xmlDoc.evaluate("*[local-name()='title']", movie, null, XPathResult.STRING_TYPE, null).stringValue
                 .toUpperCase();
             var h5Tag = document.createElement('h5');
             h5Tag.innerText = title;

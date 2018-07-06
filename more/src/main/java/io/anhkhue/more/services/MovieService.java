@@ -26,6 +26,7 @@ public class MovieService {
     static final int UNABLE_TO_SAVE = -2;
 
     private final Similarity<Movie> movieSimilarity;
+    private final Similarity<String> stringSimilarity;
 
     private final MovieRepository movieRepository;
     private final ActorInMovieRepository actorInMovieRepository;
@@ -37,13 +38,14 @@ public class MovieService {
     private final MiningService miningService;
 
     public MovieService(Similarity<Movie> movieSimilarity,
-                        MovieRepository movieRepository,
+                        Similarity<String> stringSimilarity, MovieRepository movieRepository,
                         ActorInMovieRepository actorInMovieRepository,
                         ActorRepository actorRepository,
                         MovieHasCategoryRepository movieHasCategoryRepository,
                         LinkRepository linkRepository,
                         AccountRateMovieRepository accountRateMovieRepository, MiningService miningService) {
         this.movieSimilarity = movieSimilarity;
+        this.stringSimilarity = stringSimilarity;
         this.movieRepository = movieRepository;
         this.actorInMovieRepository = actorInMovieRepository;
         this.actorRepository = actorRepository;
@@ -222,7 +224,7 @@ public class MovieService {
                                                                                           newMovie.getYear());
 
         moviesByDirectorAndYear.forEach(movie -> {
-            if (movieSimilarity.score(newMovie, movie) > 45) {
+            if (stringSimilarity.score(newMovie.getTitle(), movie.getTitle()) > 45) {
                 movie.setOnCinema(newMovie.isOnCinema());
                 movie.setComing(newMovie.isComing());
                 result.set(movie.getId());
