@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button onclick="testNS()">Test</button>
+
+    <script>
+
+        function testNS() {
+            var xmlString = '<books xmlns="http://anhkhue.io/schema/Books"><book><title>The Clean Code</title><price>12</price></book><book><title>Cloud Native Java</title><price>15</price></book><book><title>Harry Potter</title><price>20</price></book></books>';
+
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+            var books = xmlDoc.evaluate("//*[local-name()='book']", xmlDoc, null, XPathResult.ANY_TYPE, null);
+
+            var book = books.iterateNext();
+
+            while (book) {
+                var title = xmlDoc.evaluate("*[local-name()='title']", book, null, XPathResult.STRING_TYPE, null).stringValue;
+                console.log(title);
+
+                var price = xmlDoc.evaluate("*[local-name()='price']", book, null, XPathResult.STRING_TYPE, null).stringValue;
+                console.log(price);
+
+                book = books.iterateNext();
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

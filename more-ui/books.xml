@@ -1,0 +1,10 @@
+<books xmlns="http://anhkhue.io/schema/Books">
+    <book>
+        <title>The Clean Code</title>
+        <price>12</price>
+    </book>
+    <book>
+        <title>Cloud Native Java</title>
+        <price>15</price>
+    </book>
+</books>

@@ -96,6 +96,10 @@
         <jsp:include page="../fragments/footer.jsp"/>
 
         <script type="text/javascript">
+            function isValidEmail(email) {
+                return /^[a-zA-Z][a-zA-Z0-9]*([.][a-zA-Z][a-zA-Z0-9]*)?[@][a-zA-Z]+[.][a-zA-Z]+([.][a-zA-Z]+)?$/.test(email);
+            }
+
             function addVendor(formId) {
                 var informDiv = document.getElementById('inform');
                 informDiv.innerHTML = "";
@@ -119,63 +123,73 @@
                         errorMessage.classList.add('alert', 'alert-danger');
                         errorMessage.innerHTML = "Mật khẩu không trùng khớp.<br/>Vui lòng nhập lại";
                         informDiv.appendChild(errorMessage);
-
                         rePassword.value.innerHTML = "";
+
                         rePassword.focus();
                     } else {
-                        var request = new XMLHttpRequest();
-                        var url = '/vendor';
+                        var email = document.getElementById('email').value;
 
-                        request.open('POST', url);
-                        request.onreadystatechange = function () {
-                            if (request.readyState === 4 && request.status === 201) {
-                                var informMessage = document.createElement('div');
-                                informMessage.classList.add('alert', 'alert-success');
-                                informMessage.innerHTML = "Tài khoản đã được tạo thành công";
-                                informDiv.appendChild(informMessage);
+                        if (!isValidEmail(email)) {
+                            errorMessage = document.createElement('div');
+                            errorMessage.classList.add('alert', 'alert-danger');
+                            errorMessage.innerHTML = "Email không phù hợp,<br/>vui lòng kiểm tra lại!";
+                            informDiv.appendChild(errorMessage);
+                            rePassword.value.innerHTML = "";
+                        } else {
+                            var request = new XMLHttpRequest();
+                            var url = '/vendor';
 
-                                var rows = document.getElementById('table-vendor')
-                                    .getElementsByTagName("tbody")[0]
-                                    .getElementsByTagName("tr").length;
+                            request.open('POST', url);
+                            request.onreadystatechange = function () {
+                                if (request.readyState === 4 && request.status === 201) {
+                                    var informMessage = document.createElement('div');
+                                    informMessage.classList.add('alert', 'alert-success');
+                                    informMessage.innerHTML = "Tài khoản đã được tạo thành công";
+                                    informDiv.appendChild(informMessage);
 
-                                var tableBody = document.getElementById('vendor-table-body');
-                                var tRow = document.createElement('tr');
+                                    var rows = document.getElementById('table-vendor')
+                                        .getElementsByTagName("tbody")[0]
+                                        .getElementsByTagName("tr").length;
 
-                                var countCell = document.createElement('th');
-                                countCell.setAttribute('scope', 'row');
-                                countCell.innerHTML = rows + 1;
-                                tRow.appendChild(countCell);
+                                    var tableBody = document.getElementById('vendor-table-body');
+                                    var tRow = document.createElement('tr');
 
-                                var nameCell = document.createElement('td');
-                                var name = document.getElementById('name').value;
-                                nameCell.innerHTML = name;
-                                tRow.appendChild(nameCell);
+                                    var countCell = document.createElement('th');
+                                    countCell.setAttribute('scope', 'row');
+                                    countCell.innerHTML = rows + 1;
+                                    tRow.appendChild(countCell);
 
-                                var telCell = document.createElement('td');
-                                var tel = document.getElementById('tel').value;
-                                telCell.innerHTML = tel;
-                                tRow.appendChild(telCell);
+                                    var nameCell = document.createElement('td');
+                                    var name = document.getElementById('name').value;
+                                    nameCell.innerHTML = name;
+                                    tRow.appendChild(nameCell);
 
-                                var emailCell = document.createElement('td');
-                                var email = document.getElementById('email').value;
-                                emailCell.innerHTML = email;
-                                tRow.appendChild(emailCell);
+                                    var telCell = document.createElement('td');
+                                    var tel = document.getElementById('tel').value;
+                                    telCell.innerHTML = tel;
+                                    tRow.appendChild(telCell);
 
-                                tableBody.appendChild(tRow);
-                                form.reset();
-                            } else if (request.status === 406) {
-                                informDiv.innerHTML = "";
-                                informMessage = document.createElement('div');
-                                informMessage.classList.add('alert', 'alert-info');
-                                informMessage.innerHTML = request.responseText;
-                                informDiv.appendChild(informMessage);
+                                    var emailCell = document.createElement('td');
+                                    var email = document.getElementById('email').value;
+                                    emailCell.innerHTML = email;
+                                    tRow.appendChild(emailCell);
 
-                                var username = document.getElementById('username');
-                                username.focus();
-                            } else if (request.status === 500) {
-                                window.location.replace("http://localhost:8080/error");
-                            }
-                        };
+                                    tableBody.appendChild(tRow);
+                                    form.reset();
+                                } else if (request.status === 406) {
+                                    informDiv.innerHTML = "";
+                                    informMessage = document.createElement('div');
+                                    informMessage.classList.add('alert', 'alert-info');
+                                    informMessage.innerHTML = request.responseText;
+                                    informDiv.appendChild(informMessage);
+
+                                    var username = document.getElementById('username');
+                                    username.focus();
+                                } else if (request.status === 500) {
+                                    window.location.replace("http://localhost:8080/error");
+                                }
+                            };
+                        }
                         request.send(form);
                     }
                 }
