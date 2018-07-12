@@ -31,7 +31,7 @@ public class PageDomProvider implements PageProvider<Document> {
         Document document = parser.parseFromHtml(checkpoints.getLink(),
                                                  checkpoints.getStart(),
                                                  checkpoints.getEnd());
-        log.info("Finish connecting to " + checkpoints.getLink());
+        log.info("Connected to " + checkpoints.getLink());
         return document;
     }
 }

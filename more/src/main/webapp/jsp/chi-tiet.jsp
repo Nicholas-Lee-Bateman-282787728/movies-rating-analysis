@@ -105,10 +105,15 @@
 
         <script type="text/javascript">
             // self executing function
-            (function () {
+            /*(function () {
                 getHighVote();
                 getSimilarMovies();
-            })();
+            })();*/
+
+            document.onreadystatechange = function () {
+                getHighVote();
+                getSimilarMovies();
+            };
 
             function rate(star) {
                 var stars = document.getElementsByClassName('star');

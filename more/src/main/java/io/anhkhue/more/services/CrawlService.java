@@ -27,7 +27,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -60,9 +59,17 @@ public class CrawlService {
 
     private final StringConverter stringConverter;
 
-    public CrawlService(CrawlerFactory crawlerFactory, ActorService actorService, MovieService movieService, MovieRepository movieRepository, LinkService linkService,
-                        ActorInMovieDAO actorInMovieDAO, ActorInMovieRepository actorInMovieRepository, MovieHasCategoryDAO movieHasCategoryDAO,
-                        MovieHasCategoryRepository movieHasCategoryRepository, SchemaValidator schemaValidator, StringConverter stringConverter) {
+    public CrawlService(CrawlerFactory crawlerFactory,
+                        ActorService actorService,
+                        MovieService movieService,
+                        MovieRepository movieRepository,
+                        LinkService linkService,
+                        ActorInMovieDAO actorInMovieDAO,
+                        ActorInMovieRepository actorInMovieRepository,
+                        MovieHasCategoryDAO movieHasCategoryDAO,
+                        MovieHasCategoryRepository movieHasCategoryRepository,
+                        SchemaValidator schemaValidator,
+                        StringConverter stringConverter) {
         this.crawlerFactory = crawlerFactory;
         this.actorService = actorService;
         this.movieService = movieService;
@@ -141,8 +148,8 @@ public class CrawlService {
                 movies.add(movie);
             } catch (JAXBException | SAXException | IOException e) {
                 log.info(this.getClass().getSimpleName() + "_" + e.getClass().getSimpleName()
-                         + ": Fail to validate " + movie.getTitle()
-                         + "- Skipped");
+                         + " " + e.getMessage());
+                log.info(": Fail to validate " + movie.getTitle() + " - Skipped");
             }
         }
 

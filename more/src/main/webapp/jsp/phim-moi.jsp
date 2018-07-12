@@ -64,7 +64,7 @@
 
         <script type="text/javascript">
             // self executing function
-            (function () {
+            /*(function () {
                 var pagination = new Pagination(currentPage, 'top', null);
 
                 pagination.createPagination('pagination');
@@ -76,7 +76,21 @@
                 } else {
                     moviePresenter.presentByPage(currentPage, moviePerPage);
                 }
-            })();
+            })();*/
+
+            document.onreadystatechange = function () {
+                var pagination = new Pagination(currentPage, 'top', null);
+
+                pagination.createPagination('pagination');
+                var movieAccessor = new MovieAccessor('top', currentPage, moviePerPage);
+
+                var moviePresenter = new MoviePresenter('movies', movieAccessor, null);
+                if (sessionStorage.getItem('topMovies') === null) {
+                    topNewMovies(moviePerPage * 10, moviePresenter);
+                } else {
+                    moviePresenter.presentByPage(currentPage, moviePerPage);
+                }
+            };
         </script>
     </body>
 </html>

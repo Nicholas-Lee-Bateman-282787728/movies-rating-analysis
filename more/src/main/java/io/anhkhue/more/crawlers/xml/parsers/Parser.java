@@ -20,7 +20,6 @@ public interface Parser<T> {
         boolean onGoing = false;
 
         URL url = new URL(link);
-//        System.out.println("Start connection to " + link);
         URLConnection connection = url.openConnection();
         connection.addRequestProperty("User-Agent", "Mozilla/5.0");
 

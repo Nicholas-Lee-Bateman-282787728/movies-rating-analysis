@@ -91,8 +91,12 @@
     font-size: 1.0em;
 }
 
+.buttons-group > a > .btn-success {
+    margin-left: 5%;
+}
+
 .testimonials {
-    padding-top: 0rem;
+    padding-top: 0;
     padding-bottom: 7rem;
 }
 

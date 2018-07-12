@@ -195,7 +195,7 @@
 
         <script type="text/javascript">
             // self executing function
-            (function () {
+            /*(function () {
                 var movieAccessor = new MovieAccessor('top', 1, 8);
 
                 var moviePresenter = new MoviePresenter('movies', movieAccessor, null);
@@ -210,7 +210,24 @@
                 if (sessionStorage.getItem('recommendedMovies') === '') {
                     topRecommendedMovies(12 * 10, null);
                 }
-            })();
+            })();*/
+
+            document.onreadystatechange = function () {
+                var movieAccessor = new MovieAccessor('top', 1, 8);
+
+                var moviePresenter = new MoviePresenter('movies', movieAccessor, null);
+                if (sessionStorage.getItem('topMovies') === null) {
+                    topNewMovies(12 * 10, moviePresenter);
+                } else {
+                    moviePresenter.presentByPage(1, 8);
+                }
+                if (sessionStorage.getItem('comingMovies') === null) {
+                    topComingMovies(12 * 10, null);
+                }
+                if (sessionStorage.getItem('recommendedMovies') === '') {
+                    topRecommendedMovies(12 * 10, null);
+                }
+            };
         </script>
     </body>
 </html>

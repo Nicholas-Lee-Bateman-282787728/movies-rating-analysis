@@ -29,7 +29,7 @@ public class PageStreamReaderProvider implements PageProvider<XMLStreamReader> {
         XMLStreamReader reader = parser.parseFromHtml(checkpoints.getLink(),
                                                       checkpoints.getStart(),
                                                       checkpoints.getEnd());
-        log.info("Finish connecting to " + checkpoints.getLink());
+        log.info("Connected to " + checkpoints.getLink());
         return reader;
     }
 
