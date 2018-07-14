@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AK Phim</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/vendor-manager.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/crawler-switch.css" />
+    <link href="https://unpkg.com/ionicons@4.2.4/dist/css/ionicons.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <div class="header-title">
+                AK Phim
+            </div>
+            <div class="header-username">
+                Thái Lý Anh Khuê
+            </div>
+            <div class="header-logout">
+                Đăng xuất
+            </div>
+        </div>
+        <div class="body">
+            <h1 class="message">Khởi động bộ thu thập dữ liệu</h1>
+            <br/>
+            <label class="switch">
+                <input type="checkbox" checked id="switch-crawler" onclick="check();">
+                <span class="slider round"></span>
+            </label>
+            <h3 id="message">
+
+            </h3>
+            <h3 id="wait"></h3>
+        </div>
+        <div class="footer">
+            <div class="footer-item info">
+                <span>AK Phim Corporation &sdot; (+84)0121-6989-609 &sdot;</span>
+                <span>khuetlase62541@fpt.edu.vn</span>
+                <span>&copy; AK Phim 2018. All Rights Reserved.</span>
+            </div>
+            <div class="footer-item contacts">
+                <i class="icon ion-logo-facebook"></i>
+                <i class="icon ion-logo-twitter"></i>
+                <i class="icon ion-logo-instagram"></i>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function check() {
+            var switchButton = document.getElementById('switch-crawler');
+
+            var message = document.getElementById('message');
+            var wait = document.getElementById("wait");
+
+
+            message.innerHTML = '';
+            if (switchButton.checked === true) {
+                message.innerHTML = 'Hệ thống đang thu thập dữ liệu<br/>';
+                wait.hidden = false;
+                var dots = window.setInterval(function () {
+                    var wait = document.getElementById("wait");
+                    if (wait.innerHTML.length > 3)
+                        wait.innerHTML = "";
+                    else
+                        wait.innerHTML += ".";
+                }, 500);
+            } else {
+                message.innerHTML = 'Đã tạm ngưng việc thu thập dữ liệu';
+                wait.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

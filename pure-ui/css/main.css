@@ -1,0 +1,289 @@
+/***************************************/
+/* Common formats */
+/***************************************/
+*, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    /* color: #fff */
+}
+body {
+    font-size: 100%;
+    /* background-color: #171717; */
+}
+
+a {
+    text-decoration: none;
+    color: #28a745;
+}
+
+
+/***************************************/
+/* End Common formats */
+/***************************************/
+
+
+/***************************************/
+/* Mobile First */
+/***************************************/
+/* Header */
+#main-header {
+    /* background-color: #1d1d1d; */
+    /* border-bottom: 1px solid #2f2f2f; */
+    height: 100px;
+}
+#main-header-wrapper {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 10% auto auto 40% auto 10%;
+    grid-template-rows: auto;
+}
+/* #main-header-wrapper:after {
+    content: " ";
+    display: block;
+    clear: both;
+} */
+
+/* #logo, #search-tool, #account-tool {
+    float: left;
+    height: 50px;
+    line-height: 50px;
+} */
+
+/* Logo */
+#logo {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1; 
+    background: url('../img/Logo_K.svg') no-repeat center;
+    background-size: contain;
+    transform: scale(0.8, 0.8);
+}
+
+#MoRe-text {
+    grid-column: 3 / span 1;
+    grid-row: 1 / span 1;
+    color: green;
+    align-self: center;
+    font-size: 2rem;
+}
+
+/* Search box */
+#search-tool {
+    width: 100%;
+    text-align: center;
+}
+#search-box {
+    border: 1px solid #28a745;
+    width: 80%;
+    height: 25px;
+    /*This is to align text inside the search box*/
+    line-height: 40px;
+    /*These are used to vertically align*/
+    display: inline-block;
+    vertical-align: middle;
+}
+#search-box:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+#search-box span{
+    float: left;
+    display: inline-block;
+    width: 20%;
+    height: 100%;
+    background-color: #ebebeb;
+}
+#search-box input{
+    color: #171717;
+    float: left;
+    width: 70%;
+    height: 100%;
+    display: inline-block;
+    padding: 5px;
+    border: none;
+    outline: none;
+}
+#search-box button{
+    float: left;
+    width: 30%;
+    height: 100%;
+    display: inline-block;
+    border: none;
+    background-color: #28a745;
+    font-size: 0.8em;
+    color: white;
+}
+
+/*Format for account tools */
+#account-tool {
+    grid-column: 5 / span 1;
+    grid-row: 1 / span 1;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    align-content: center;
+    font-size: 1.2rem;
+}
+
+#account-tool a {
+    display: flex;
+    align-items: center;
+}
+
+#account-tool a:first-child {
+    justify-content: center;
+}
+
+#account-tool button {
+    padding: 5% 10%;
+    font-size: 1.2rem;
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+}
+
+/* #account-tool a {
+    display: inline-block;
+    font-size: 0.8em;
+    vertical-align: middle;
+    line-height: normal;
+    margin-left: 5%;
+    text-align: center;
+    position: relative;
+}
+#account-tool > a > span {
+    display: block;
+} */
+
+/* Main body layout */
+#main-body-wrapper {
+    padding-top: 2%;
+    width: 80%;
+    margin: 0 auto;
+}
+#main-body-wrapper:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+/***************************************/
+/* End Mobile First */
+/***************************************/
+
+
+/***************************************/
+/* Responsive */
+/***************************************/
+/* For viewport >= 640px */
+@media screen and (min-width: 640px) {
+    /* #logo {
+        width: 15%;
+        margin-left: 45%;
+        margin-bottom: 5%;
+    } */
+
+    #search-box input{
+        width: 75%;
+    }
+    
+    #search-box button{
+        width: 25%;
+        font-size: 1.0em;
+    }
+    
+    /*Format for account tools */
+    #account-tool a {
+        font-size: 1.0em;
+    }
+}
+
+/*For viewport >= 1024px */
+@media screen and (min-width: 1024px) {
+    /*Format for main header */
+    /* #logo, #search-tool, #account-tool {
+        float: left;
+        height: 100px;
+        line-height: 100px;
+    } */
+
+    /* #logo {
+        width: 25%;
+        margin-left: 0;
+        margin-bottom: 0;
+    } */
+
+    #search-tool {
+        width: 50%;
+        text-align: justify;
+    }
+
+    /* #account-tool {
+        width: 25%;
+        text-align: justify;
+    } */
+
+    /* #logo > a > img {
+        width: 100%;
+        height: 100%;
+    } */
+
+    #search-box {
+        height: 40px;
+    }
+
+    #search-box button{
+        font-size: 1.0em;
+    }
+}
+
+
+/*For viewport >= 1366px */
+
+@media screen and (min-width: 1366px) {
+    /*Format for main header */
+    /* #logo {
+        width: 15%;
+        margin-bottom: 0;
+    } */
+
+    #search-tool {
+        width: 60%;
+        text-align: center;
+    }
+
+    /* #account-tool {
+        width: 25%;
+    } */
+
+    #search-box button{
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+
+    /*Format for account tools */
+    #account-tool {
+        text-align: right;
+    }
+}
+/***************************************/
+/* End Responsive */
+/***************************************/
+
+
+/***************************************/
+/* Footer */
+/***************************************/
+footer {
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
+    background-color: #E0E0E0;
+}
+/***************************************/
+/* End footer */
+/***************************************/

@@ -1,0 +1,79 @@
+.message {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+}
+
+.switch {
+    position: relative;
+    width: 60px;
+    height: 34px;
+    grid-column: 2 / span 1;
+    grid-row: 3 / span 1;
+  }
+  
+  .switch input {display:none;}
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #28a745;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #28a745;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  #message {
+    grid-column: 2 / span 1;
+    grid-row: 4 / span 1;
+  }
+
+  #wait {
+    grid-column: 2 / span 1;
+    grid-row: 5 / span 1;
+  }
+
+  .body {
+    display: grid;
+    grid-template-columns: 10% auto 10%;
+    grid-template-rows: 10% 100px 50px 50px 50px 10%;
+    align-items: center;
+    justify-items: center;
+  }

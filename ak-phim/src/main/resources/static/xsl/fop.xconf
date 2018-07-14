@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<fop>
+    <renderers>
+        <renderer mime="application/pdf">
+            <fonts>
+                <directory recursive="true">/usr/share/fonts/truetype/</directory>
+                <auto-detect/>
+            </fonts>
+        </renderer>
+    </renderers>
+</fop>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsi:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://anhkhue.io/schema/movies"
+            xmlns="http://anhkhue.io/schema/movies"
+            elementFormDefault="qualified">
+
+    <xsi:include schemaLocation="movie.xsd"/>
+
+    <xsi:element name="movies">
+        <xsi:complexType>
+            <xsi:sequence>
+                <xsi:element name="movie" type="Movie" maxOccurs="unbounded"/>
+            </xsi:sequence>
+        </xsi:complexType>
+    </xsi:element>
+
+</xsi:schema>

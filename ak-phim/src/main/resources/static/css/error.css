@@ -1,0 +1,14 @@
+.message {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 2.0em;
+    margin-bottom: 2%;
+}
+
+.error-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 10%;
+}

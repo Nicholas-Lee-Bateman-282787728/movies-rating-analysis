@@ -64,21 +64,6 @@
         <script src="/js/more/Pagination.js" type="text/javascript"></script>
 
         <script type="text/javascript">
-            // self executing function
-            /*(function () {
-                var pagination = new Pagination(currentPage, 'coming', null);
-
-                pagination.createPagination('pagination');
-                var movieAccessor = new MovieAccessor('coming', currentPage, moviePerPage);
-
-                var moviePresenter = new MoviePresenter('movies', movieAccessor, null);
-                if (sessionStorage.getItem('comingMovies') === null) {
-                    topComingMovies(moviePerPage * 10, moviePresenter);
-                } else {
-                    moviePresenter.presentByPage(currentPage, moviePerPage);
-                }
-            })();*/
-
             document.onreadystatechange = function () {
                 var pagination = new Pagination(currentPage, 'coming', null);
 

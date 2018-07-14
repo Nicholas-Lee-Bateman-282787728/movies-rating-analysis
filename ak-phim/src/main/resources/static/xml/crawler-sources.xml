@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<sources xmlns="http://xml.anhkhue.io/schema/crawler-sources">
+    <source isCinema="true">
+        <name>BHD Star</name>
+        <classPath>io.anhkhue.more.crawlers.agents.vendors.BhdStarCrawler</classPath>
+        <pages>
+            <page isComing="false">
+                <type>List</type>
+                <link>https://www.bhdstar.vn/</link>
+                <startPoint><![CDATA[id="film-1"]]></startPoint>
+                <endPoint><![CDATA[id="film-2"]]></endPoint>
+            </page>
+            <page isComing="true">
+                <type>List</type>
+                <link>https://www.bhdstar.vn/</link>
+                <startPoint><![CDATA[id="film-2"]]></startPoint>
+                <endPoint><![CDATA[id="film-3"]]></endPoint>
+            </page>
+            <page isComing="false">
+                <type>Detail</type>
+                <link>https://www.bhdstar.vn/movies/</link>
+                <startPoint><![CDATA[film--detail-content]]></startPoint>
+                <endPoint><![CDATA[lich-chieu-phim]]></endPoint>
+            </page>
+            <page isComing="true">
+                <type>Detail</type>
+                <link>https://www.bhdstar.vn/movies/</link>
+                <startPoint><![CDATA[film--detail-content-top]]></startPoint>
+                <endPoint><![CDATA[film--detail-bottom]]></endPoint>
+            </page>
+        </pages>
+    </source>
+    <source isCinema="false">
+        <name>Phimmoi.com</name>
+        <classPath>io.anhkhue.more.crawlers.agents.websites.PhimmoiCrawler</classPath>
+        <pages>
+            <page isComing="false">
+                <type>List</type>
+                <link>http://www.phimmoi.com/</link>
+                <startPoint><![CDATA[movie-carousel-top]]></startPoint>
+                <endPoint><![CDATA[/ul]]></endPoint>
+            </page>
+            <page isComing="false" containPagination="true">
+                <type>List</type>
+                <link>http://www.phimmoi.com/phim-le/page/</link>
+                <startPoint><![CDATA[class="list-movie"]]></startPoint>
+                <endPoint><![CDATA[/ul]]></endPoint>
+            </page>
+            <page isComing="false">
+                <type>Detail</type>
+                <link>http://www.phimmoi.com/</link>
+                <startPoint><![CDATA[class="movie-info"]]></startPoint>
+                <endPoint><![CDATA[<!-- / Thông tin phim -->]]></endPoint>
+            </page>
+        </pages>
+    </source>
+    <source isCinema="false">
+        <name>Vừng TV</name>
+        <classPath>io.anhkhue.more.crawlservice.crawlers.websites.VungTvCrawler</classPath>
+        <pages>
+            <page isComing="false">
+                <type>List</type>
+                <link>http://www.phimmoi.com/</link>
+                <startPoint><![CDATA[movies-carousel-top]]></startPoint>
+                <endPoint><![CDATA[/ul]]></endPoint>
+            </page>
+            <page isComing="false" containPagination="true">
+                <type>List</type>
+                <link>http://www.phimmoi.com/phim-le/page/</link>
+                <startPoint><![CDATA[class="list-movies"]]></startPoint>
+                <endPoint><![CDATA[/ul]]></endPoint>
+            </page>
+            <page isComing="false">
+                <type>Detail</type>
+                <link>http://www.phimmoi.com/</link>
+                <startPoint><![CDATA[class="movies-info"]]></startPoint>
+                <endPoint><![CDATA[<!-- / Thông tin phim -->]]></endPoint>
+            </page>
+        </pages>
+    </source>
+    <source isCinema="true">
+        <name>CGV</name>
+        <classPath>io.anhkhue.more.crawlservice.crawlers.vendors.CgvCrawler</classPath>
+        <pages>
+            <page isComing="false">
+                <type>List</type>
+                <link>https://www.bhdstar.vn/</link>
+                <startPoint><![CDATA[id="film-1"]]></startPoint>
+                <endPoint><![CDATA[id="film-2"]]></endPoint>
+            </page>
+            <page isComing="true">
+                <type>List</type>
+                <link>https://www.bhdstar.vn/</link>
+                <startPoint><![CDATA[id="film-2"]]></startPoint>
+                <endPoint><![CDATA[id="film-3"]]></endPoint>
+            </page>
+            <page isComing="false">
+                <type>Detail</type>
+                <link>https://www.bhdstar.vn/movies/</link>
+                <startPoint><![CDATA[film--detail-content]]></startPoint>
+                <endPoint><![CDATA[lich-chieu-phim]]></endPoint>
+            </page>
+            <page isComing="true">
+                <type>Detail</type>
+                <link>https://www.bhdstar.vn/movies/</link>
+                <startPoint><![CDATA[film--detail-content-top]]></startPoint>
+                <endPoint><![CDATA[film--detail-bottom]]></endPoint>
+            </page>
+        </pages>
+    </source>
+</sources>
