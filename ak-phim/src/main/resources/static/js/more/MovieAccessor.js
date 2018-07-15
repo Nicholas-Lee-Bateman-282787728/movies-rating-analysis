@@ -31,24 +31,25 @@ function MovieAccessor(type, page, moviesPerPage) {
         var params = 'searchValue=' + searchValue;
 
         request.onreadystatechange = function () {
+
             if (this.readyState === 4 || this.status === 200) {
                 presenter.presentArea.innerHTML = '';
                 var xmlString = request.responseText;
-                // xmlString = xmlString.replace(new RegExp(' xmlns(:.*?)?=(".*?")'), '');
                 var parser = new DOMParser();
                 accessor.xmlDoc = parser.parseFromString(xmlString, "text/xml");
-
                 var xPath = "//*[local-name()='movie']";
+
                 accessor.movies = accessor.xmlDoc.evaluate(xPath, accessor.xmlDoc, null, XPathResult.ANY_TYPE, null);
                 presenter.present();
             }
         };
 
-        request.open('GET', url, true);
         if (searchValue === null) {
-            request.send();
+            request.open('GET', url, true);
         } else {
-            request.send(params);
+            request.open('GET', url + '?' + params, true);
         }
+
+        request.send();
     };
 }

@@ -37,7 +37,7 @@ function MoviePresenter(presentAreaId, accessor, searchValue) {
 
             // Retrieve movie title
             var title = accessor.xmlDoc.evaluate("*[local-name()='title']", movie, null, XPathResult.STRING_TYPE, null).stringValue;
-                // .toUpperCase();
+            // .toUpperCase();
             var spanTitle = document.createElement('span');
             spanTitle.className = "item-title-en";
             spanTitle.innerText = title;
@@ -53,6 +53,33 @@ function MoviePresenter(presentAreaId, accessor, searchValue) {
             movie = accessor.movies.iterateNext();
 
             if (((i + 1) % 4 === 0) || movie === null) {
+                if (movie === null && (i % 4 !== 0)) {
+
+                    for (var j = 4; j > (i % 4); j--) {
+                        // Wrapper div
+                        var filledUpGap = document.createElement('div');
+                        filledUpGap.className = "item-box";
+                        filledUpGap.style.visibility = 'hidden';
+
+                        // Link to Detail
+                        var filledUpDetailLink = document.createElement('a');
+                        filledUpDetailLink.className = "movie";
+                        filledUpDetailLink.href = '';
+
+                        // Retrieve poster url
+                        var filledUpImgTag = document.createElement('img');
+                        filledUpDetailLink.appendChild(filledUpImgTag);
+
+                        // Retrieve movie title
+                        var filledUpSpanTitle = document.createElement('span');
+                        filledUpSpanTitle.className = "item-title-en";
+                        filledUpDetailLink.appendChild(filledUpSpanTitle);
+
+                        filledUpGap.appendChild(filledUpDetailLink);
+                        row.append(filledUpGap);
+                    }
+
+                }
                 this.presentArea.appendChild(row);
             }
         }

@@ -13,107 +13,123 @@
     </xsl:template>
 
     <xsl:template match="/ns:movie">
+
         <input type="hidden" id="movie-id" value="{ns:id}"/>
 
-        <div class="col-md-5 col-xs-12 text-center movie-img">
-            <img class="img-thumbnail mb-3" src="{ns:poster}" alt=""/>
-            <xsl:if test="ns:isComing[.='true']">
-                <div id="message">
-                    <div class="alert alert-info">
-                        Phim sắp ra mắt
+        <section id="main-body">
+            <div id="main-body-wrapper">
+
+                <div id="left_col">
+
+                    <div class="item-box">
+                        <img src="{ns:poster}"/>
+                    </div>
+
+                    <xsl:if test="ns:isComing[.='true']">
+                        <div class="alert alert-info">
+                            Phim sắp ra mắt
+                        </div>
+                    </xsl:if>
+
+                    <xsl:if test="ns:isComing[.='false']">
+                        <div id="message" class="help">
+                            Giúp chúng tôi đánh giá phim này
+                        </div>
+                        <div class="star-rating">
+                            <xsl:call-template name="starRating">
+                                <xsl:with-param name="starNumber" select="1"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="starRating">
+                                <xsl:with-param name="starNumber" select="2"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="starRating">
+                                <xsl:with-param name="starNumber" select="3"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="starRating">
+                                <xsl:with-param name="starNumber" select="4"/>
+                            </xsl:call-template>
+                            <xsl:call-template name="starRating">
+                                <xsl:with-param name="starNumber" select="5"/>
+                            </xsl:call-template>
+                        </div>
+                    </xsl:if>
+
+                </div>
+
+                <div id="right_col">
+                    <aside id="main-info">
+                        <h1 class="title">
+                            <xsl:value-of select="ns:title"/>
+                        </h1>
+                        <h2 class="year">
+                            <xsl:value-of select="ns:year"/>
+                        </h2>
+                    </aside>
+                    <aside class="category">
+                        <h1>Thể loại</h1>
+                        <xsl:apply-templates select="ns:categories"/>
+                    </aside>
+                    <aside class="director">
+                        <h1>Đạo diễn</h1>
+                        <xsl:value-of select="ns:director"/>
+                    </aside>
+                    <aside class="actor">
+                        <h1>Diễn viên</h1>
+                        <xsl:apply-templates select="ns:actors"/>
+                    </aside>
+                    <aside id="movie-rating" class="rate-no">
+                        <h1>Đánh giá</h1>
+                        <xsl:value-of select="format-number(number(ns:rating), '0.##')"/>
+                        <xsl:text> </xsl:text>
+                        <span class="fa fa-star"/>
+                    </aside>
+                    <div id="watch-buttons">
+
+                        <xsl:if test="ns:onCinema[.='true']">
+                            <h2>Đặt vé</h2>
+                            <div class="buttons-group">
+                                <xsl:for-each select="./ns:links/ns:link[ns:isCinema='true']">
+                                    <a href="{./ns:url}">
+                                        <button>
+                                            <xsl:value-of select="./ns:source"/>
+                                        </button>
+                                    </a>
+                                </xsl:for-each>
+                            </div>
+                        </xsl:if>
+                        <xsl:if test="ns:onCinema[.='false']">
+                            <h2>Xem phim</h2>
+                            <div class="buttons-group">
+                                <xsl:for-each select="./ns:links/ns:link[ns:isCinema='false']">
+                                    <a href="{./ns:url}">
+                                        <button>
+                                            <xsl:value-of select="./ns:source"/>
+                                        </button>
+                                    </a>
+                                </xsl:for-each>
+                            </div>
+                        </xsl:if>
+
+                    </div>
+                    <aside id="high-votes">
+
+                    </aside>
+                </div>
+            </div>
+
+            <div class="main-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        Có thể bạn sẽ thích
                     </div>
                 </div>
-            </xsl:if>
-            <xsl:if test="ns:isComing[.='false']">
-                <div id="message">
-                    Giúp chúng tôi đánh giá phim này
-                </div>
-                <div id="star-rating" class="star-rating">
-                    <xsl:call-template name="starRating">
-                        <xsl:with-param name="starNumber" select="1"/>
-                    </xsl:call-template>
-                    <xsl:call-template name="starRating">
-                        <xsl:with-param name="starNumber" select="2"/>
-                    </xsl:call-template>
-                    <xsl:call-template name="starRating">
-                        <xsl:with-param name="starNumber" select="3"/>
-                    </xsl:call-template>
-                    <xsl:call-template name="starRating">
-                        <xsl:with-param name="starNumber" select="4"/>
-                    </xsl:call-template>
-                    <xsl:call-template name="starRating">
-                        <xsl:with-param name="starNumber" select="5"/>
-                    </xsl:call-template>
-                </div>
-            </xsl:if>
-        </div>
+                <div id="similar">
 
-        <div class="card col-md-7 col-xs-12">
-            <h1 class="product-title">
-                <xsl:value-of select="ns:title"/>
-            </h1>
-            <div class="row movie-info">
-                <div class="col-md-3">Năm:</div>
-                <div class="col">
-                    <xsl:value-of select="ns:year"/>
                 </div>
             </div>
-            <div class="row movie-info">
-                <div class="col-md-3">Đạo diễn:</div>
-                <div class="col">
-                    <xsl:value-of select="ns:director"/>
-                </div>
-            </div>
-            <div class="row movie-info">
-                <div class="col-md-3">Diễn viên:</div>
-                <div class="col">
-                    <xsl:apply-templates select="ns:actors"/>...
-                </div>
-            </div>
-            <div class="row movie-info">
-                <div class="col-md-3">Thể loại:</div>
-                <div class="col">
-                    <xsl:apply-templates select="ns:categories"/>
-                </div>
-            </div>
-            <div class="row movie-info">
-                <div class="col-md-3">Đánh giá:</div>
-                <div id="movie-rating" class="col">
-                    <xsl:value-of select="format-number(number(ns:rating), '0.##')"/>
-                    <xsl:text> </xsl:text>
-                    <span class="fa fa-star"/>
-                </div>
-            </div>
-            <xsl:if test="ns:onCinema[.='true']">
-                <h4 class="movie-link">Đặt vé</h4>
-                <div class="buttons-group">
-                    <xsl:for-each select="./ns:links/ns:link[ns:isCinema='true']">
-                        <a href="{./ns:url}">
-                            <button class="btn btn-success">
-                                <xsl:value-of select="./ns:source"/>
-                            </button>
-                        </a>
-                    </xsl:for-each>
-                </div>
-            </xsl:if>
-            <xsl:if test="ns:onCinema[.='false']">
-                <h4 class="movie-link">Xem phim</h4>
-                <div class="buttons-group">
-                    <xsl:for-each select="./ns:links/ns:link[ns:isCinema='false']">
-                        <a href="{./ns:url}">
-                            <button class="btn btn-success">
-                                <xsl:value-of select="./ns:source"/>
-                            </button>
-                        </a>
-                    </xsl:for-each>
-                </div>
-            </xsl:if>
-            <div class="vote" id="vote">
-                <!--<strong>91%</strong>
-                người xem đánh giá cao phim này
-                <strong>(87 votes)</strong>-->
-            </div>
-        </div>
+
+        </section>
+
     </xsl:template>
 
     <xsl:template match="ns:actors">

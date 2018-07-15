@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -27,72 +27,173 @@
         <!-- Header -->
         <jsp:include page="fragments/header.jsp"/>
 
-        <div id="banner">
-            <img src="/img/bg-masthead-1.jpg"/>
-            <div class="banner-overlay"></div>
-            <div class="banner-content">
-                <div class="banner-title">
-                    Khám phá thế giới điện ảnh của bạn
-                </div>
-                <div class="banner-search">
-                    <input type="text" placeholder=" Tên phim..."/>
-                    <button>Tìm kiếm</button>
-                </div>
-            </div>
-        </div>
+        <%-- Banner --%>
+        <jsp:include page="fragments/banner.jsp">
+            <jsp:param name="bannerImg" value="/img/bg-masthead-1.jpg"/>
+            <jsp:param name="adQuote" value="Khám phá thế giới điện ảnh của bạn"/>
+        </jsp:include>
 
         <section id="main-body">
             <section class="features-icons bg-light text-center">
                 <div class="container">
+
+                    <c:set var="user" value="${sessionScope.USER}"/>
+
                     <div class="tab-list">
-                        <div class="tab">
-                            <a href="/danh-cho-ban">
-                                <div class="tab-item">
-                                    <div class="features-icons-icon d-flex">
-                                        <i class="icon-layers m-auto text-success"></i>
+
+                        <%-- If not signed in --%>
+                        <c:if test="${empty user}">
+                            <div class="tab">
+                                <a href="/phim-moi">
+                                    <div class="tab-item">
+                                        <div class="features-icons-icon d-flex">
+                                            <i class="icon-film m-auto text-success"></i>
+                                        </div>
+                                        <h3>Mới cập nhật</h3>
                                     </div>
-                                    <h3>Dành cho bạn</h3>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="tab">
-                            <a href="/phim-moi">
-                                <div class="tab-item">
-                                    <div class="features-icons-icon d-flex">
-                                        <i class="icon-film m-auto text-success"></i>
+                                </a>
+                            </div>
+                            <div class="tab">
+                                <a href="/sap-ra-mat">
+                                    <div class="tab-item">
+                                        <div class="features-icons-icon d-flex">
+                                            <i class="icon-event m-auto text-success"></i>
+                                        </div>
+                                        <h3>Sắp ra mắt</h3>
                                     </div>
-                                    <h3>Mới cập nhật</h3>
+                                </a>
+                            </div>
+                        </c:if>
+
+                        <%-- If signed in --%>
+                        <c:if test="${not empty user}">
+                            <%-- Is Admin --%>
+                            <c:if test="${user.role == 0}">
+                                <div class="tab">
+                                    <a href="/admin/vendor-manager">
+                                        <div class="tab-item">
+                                            <div class="features-icons-icon d-flex">
+                                                <i class="icon-people m-auto text-success"></i>
+                                            </div>
+                                            <h3>Quản lí khách hàng</h3>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="tab">
-                            <a href="/sap-ra-mat">
-                                <div class="tab-item">
-                                    <div class="features-icons-icon d-flex">
-                                        <i class="icon-event m-auto text-success"></i>
+                                <div class="tab">
+                                    <a href="/admin/crawler-switch">
+                                        <div class="tab-item">
+                                            <div class="features-icons-icon d-flex">
+                                                <i class="icon-cloud-download m-auto text-success"></i>
+                                            </div>
+                                            <h3>Quản lí dữ liệu</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </c:if>
+                        </c:if>
+
+                        <%-- Is User --%>
+                        <c:if test="${user.role == 1}">
+                            <div class="tab">
+                                <a href="/danh-cho-ban">
+                                    <div class="tab-item">
+                                        <div class="features-icons-icon d-flex">
+                                            <i class="icon-layers m-auto text-success"></i>
+                                        </div>
+                                        <h3>Dành cho bạn</h3>
                                     </div>
-                                    <h3>Sắp ra mắt</h3>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                            <div class="tab">
+                                <a href="/phim-moi">
+                                    <div class="tab-item">
+                                        <div class="features-icons-icon d-flex">
+                                            <i class="icon-film m-auto text-success"></i>
+                                        </div>
+                                        <h3>Mới cập nhật</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="tab">
+                                <a href="/sap-ra-mat">
+                                    <div class="tab-item">
+                                        <div class="features-icons-icon d-flex">
+                                            <i class="icon-event m-auto text-success"></i>
+                                        </div>
+                                        <h3>Sắp ra mắt</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </c:if>
+
+                        <%-- Is Vendor --%>
+                        <c:if test="${user.role == 2}">
+                            <div class="tab">
+                                <a href="/vendor/ranking-report">
+                                    <div class="tab-item">
+                                        <div class="features-icons-icon d-flex">
+                                            <i class="icon-graph m-auto text-success"></i>
+                                        </div>
+                                        <h3>Báo cáo xếp hạng</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="tab">
+                                <a href="/vendor/coming-prediction">
+                                    <div class="tab-item">
+                                        <div class="features-icons-icon d-flex">
+                                            <i class="icon-calculator m-auto text-success"></i>
+                                        </div>
+                                        <h3>Dự đoán xếp hạng</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </c:if>
+
                     </div>
+
                 </div>
             </section>
 
-            <div id="main-body-wrapper">
-                <section>
-                    <div class="main-panel">
-                        <div class="panel-header">
-                            <div class="panel-title">
-                                Phim mới cập nhật
+            <!-- Movies -->
+            <%-- If not signed in --%>
+            <c:if test="${empty user}">
+                <div id="main-body-wrapper">
+                    <section>
+                        <div class="main-panel">
+                            <div class="panel-header">
+                                <div class="panel-title">
+                                    Phim mới cập nhật
+                                </div>
+                            </div>
+                            <div id="movies">
+
                             </div>
                         </div>
-                        <div id="movies">
+                    </section>
+                </div>
+            </c:if>
 
-                        </div>
+            <%-- If signed in and is User --%>
+            <c:if test="${not empty user}">
+                <c:if test="${user.role == 1}">
+                    <div id="main-body-wrapper">
+                        <section>
+                            <div class="main-panel">
+                                <div class="panel-header">
+                                    <div class="panel-title">
+                                        Phim mới cập nhật
+                                    </div>
+                                </div>
+                                <div id="movies">
+
+                                </div>
+                            </div>
+                        </section>
                     </div>
-                </section>
-            </div>
+                </c:if>
+            </c:if>
+
         </section>
 
         <!-- Footer -->

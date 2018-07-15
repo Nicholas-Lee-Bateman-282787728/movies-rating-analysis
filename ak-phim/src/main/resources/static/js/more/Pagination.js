@@ -76,7 +76,7 @@ function Pagination(currentPage, type, searchValue) {
             var moviePresenter = new MoviePresenter('movies', movieAccessor, pagination.searchValue);
 
             moviePresenter.presentByPage(page, 12);
-            document.getElementById("new-movies").scrollIntoView();
+            document.getElementById("anchor").scrollIntoView();
             return false;
         };
 
@@ -98,7 +98,7 @@ function Pagination(currentPage, type, searchValue) {
             var moviePresenter = new MoviePresenter('movies', movieAccessor, pagination.searchValue);
 
             moviePresenter.presentByPage(page, 12);
-            document.getElementById("new-movies").scrollIntoView();
+            document.getElementById("anchor").scrollIntoView();
             return false;
         };
         pageLink.innerHTML = pulp;

@@ -148,6 +148,24 @@ a {
     border-radius: 5px;
 }
 
+.return-homepage {
+    transform: translateX(-50%);
+    padding: 1% 2%;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    margin: 0px 0px 5% 50%;
+}
+
+.contacts a {
+    color: black;
+}
+
+.contacts a:hover {
+    color: green;
+}
+
 /* #account-tool a {
     display: inline-block;
     font-size: 0.8em;

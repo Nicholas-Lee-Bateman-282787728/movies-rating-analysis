@@ -33,25 +33,17 @@
         <!-- Header -->
         <jsp:include page="fragments/header.jsp"/>
 
-        <div id="banner">
-            <img src="/img/bg-masthead-3.jpg"/>
-            <div class="banner-overlay"></div>
-            <div class="banner-content">
-                <div class="banner-title">
-                    Luôn cập nhật các tác phẩm điện ảnh mới nhất
-                </div>
-                <div class="banner-search">
-                    <input type="text" placeholder=" Tên phim..."/>
-                    <button>Tìm kiếm</button>
-                </div>
-            </div>
-        </div>
+        <%-- Banner --%>
+        <jsp:include page="fragments/banner.jsp">
+            <jsp:param name="bannerImg" value="/img/bg-masthead-4.jpg"/>
+            <jsp:param name="adQuote" value="Thấu hiểu sở thích của bạn"/>
+        </jsp:include>
 
         <div id="main-body-wrapper">
             <section>
                 <div class="main-panel">
                     <div class="panel-header">
-                        <div class="panel-title">
+                        <div class="panel-title" id="anchor">
                             Có thể bạn sẽ thích
                         </div>
                     </div>

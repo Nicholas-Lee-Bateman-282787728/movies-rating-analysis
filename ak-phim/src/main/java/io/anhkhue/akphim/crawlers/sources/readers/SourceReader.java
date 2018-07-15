@@ -1,6 +1,5 @@
 package io.anhkhue.akphim.crawlers.sources.readers;
 
-import io.anhkhue.akphim.crawlers.constants.CrawlersConstants;
 import io.anhkhue.akphim.crawlers.sources.Checkpoints;
 import io.anhkhue.akphim.crawlers.xml.parsers.StAXParser;
 import org.springframework.core.io.ClassPathResource;
@@ -96,7 +95,7 @@ public class SourceReader {
                                 }
                             }
                             break;
-                        case CrawlersConstants.PageTypeConstants.PAGINATION_LIST:
+                        case PAGINATION_LIST:
                             if (pageType.equals("List") &&
                                 isComing.equals("false") &&
                                 containPagination.equals("true")) {

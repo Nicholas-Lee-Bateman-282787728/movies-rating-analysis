@@ -1,21 +1,21 @@
 .message {
-    margin-top: 10%;
-    margin-left: 68%;
-    width: 100%;;
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
 }
 
 .switch {
     position: relative;
-    display: inline-block;
     width: 60px;
     height: 34px;
-    margin-left: 95%;
-    margin-top: -5%;
-  }
-  
-  .switch input {display:none;}
-  
-  .slider {
+    grid-column: 2 / span 1;
+    grid-row: 3 / span 1;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -25,9 +25,9 @@
     background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -37,38 +37,45 @@
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  input:checked + .slider {
+}
+
+input:checked + .slider {
     background-color: #28a745;
-  }
-  
-  input:focus + .slider {
+}
+
+input:focus + .slider {
     box-shadow: 0 0 1px #28a745;
-  }
-  
-  input:checked + .slider:before {
+}
+
+input:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
+}
+
+/* Rounded sliders */
+.slider.round {
     border-radius: 34px;
-  }
-  
-  .slider.round:before {
+}
+
+.slider.round:before {
     border-radius: 50%;
-  }
+}
 
-  #message {
-      margin-top: 5%;
-      margin-left: -22%;
-  }
+#message {
+    grid-column: 2 / span 1;
+    grid-row: 4 / span 1;
+}
 
-  #wait {
-    margin-top: 0;
-      margin-bottom: 10%;
-      margin-left: 97%;
-  }
+#wait {
+    grid-column: 2 / span 1;
+    grid-row: 5 / span 1;
+}
+
+.body {
+    display: grid;
+    grid-template-columns: 10% auto 10%;
+    grid-template-rows: 10% 100px 50px 50px 50px 10%;
+    align-items: center;
+    justify-items: center;
+}

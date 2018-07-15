@@ -3,7 +3,7 @@
 
 <html lang="en">
     <body>
-        <header class="masthead text-white text-center">
+        <%--<header class="masthead text-white text-center">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row">
@@ -30,6 +30,25 @@
                     </div>
                 </div>
             </div>
-        </header>
+        </header>--%>
+
+        <div id="banner">
+            <img src="${param.bannerImg}"/>
+            <div class="banner-overlay"></div>
+            <div class="banner-content">
+                <div class="banner-title">
+                    <c:out value="${param.adQuote}"/>
+                </div>
+                <div class="banner-search">
+                    <form action="/tim-kiem">
+                        <input type="text" placeholder=" Tên phim..."
+                               value="${requestScope.SEARCH_VALUE}"
+                               name="searchValue"/>
+                        <button type="submit">Tìm kiếm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </body>
 </html>

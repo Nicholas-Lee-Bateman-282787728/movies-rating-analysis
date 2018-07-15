@@ -97,7 +97,7 @@ public class PageRouter {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("USER");
         if (account != null) {
-            List<Movie> movieList = null;
+            List<Movie> movieList;
 
             List<AccountRateMovie> ratings = accountRateMovieRepository.findByAccountUsername(account.getUsername());
 
@@ -125,7 +125,7 @@ public class PageRouter {
     public ModelAndView goSearch(HttpServletRequest request) {
         String searchValue = request.getParameter("searchValue");
 
-        Page<Movie> moviePage = movieService.searchMoviesByTitle(1, 120, searchValue);
+        Page<Movie> moviePage = movieService.searchMoviesByTitle(1, 12, searchValue);
 
         int totalPages = moviePage.getTotalPages();
         request.setAttribute("TOTAL_PAGES", totalPages);
@@ -171,24 +171,35 @@ public class PageRouter {
     @GetMapping(CRAWLER_SWITCH)
     public ModelAndView goCrawlerSwitch(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("CRAWLING", CrawlService.isCrawling);
-        return new ModelAndView(ROUTER.get(CRAWLER_SWITCH));
+        Account account = (Account) session.getAttribute("USER");
+        if (account != null && account.getRole() == RoleConstants.ADMIN) {
+            session.setAttribute("CRAWLING", CrawlService.isCrawling);
+            return new ModelAndView(ROUTER.get(CRAWLER_SWITCH));
+        } else {
+            return new ModelAndView("/errors/unauthorized");
+        }
     }
 
     @GetMapping(VENDOR_MANAGER)
     public ModelAndView goVendorManager(HttpServletRequest request) {
-        List<Vendor> vendorList = vendorService.findAll();
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("USER");
+        if (account != null && account.getRole() == RoleConstants.ADMIN) {
+            List<Vendor> vendorList = vendorService.findAll();
 
-        Vendors vendors = Vendors.builder()
-                                 .vendor(vendorList)
-                                 .build();
-        try {
-            String vendorsXml = jaxbUtils.marshall(vendors);
-            request.setAttribute("VENDORS", vendorsXml);
-        } catch (JAXBException e) {
-            log.info(this.getClass().getSimpleName() + "_" + e.getClass().getSimpleName());
+            Vendors vendors = Vendors.builder()
+                                     .vendor(vendorList)
+                                     .build();
+            try {
+                String vendorsXml = jaxbUtils.marshall(vendors);
+                request.setAttribute("VENDORS", vendorsXml);
+            } catch (JAXBException e) {
+                log.info(this.getClass().getSimpleName() + "_" + e.getClass().getSimpleName());
+            }
+            return new ModelAndView(ROUTER.get(VENDOR_MANAGER));
+        } else {
+            return new ModelAndView("/errors/unauthorized");
         }
-        return new ModelAndView(ROUTER.get(VENDOR_MANAGER));
     }
 
     @GetMapping(COMING_PREDICTION)
@@ -215,7 +226,8 @@ public class PageRouter {
 
                 String xmlString = jaxbUtils.marshall(report);
                 StreamSource xmlStreamSource = new StreamSource(new StringReader(xmlString));
-                byte[] content = vendorService.generatePdf(xmlStreamSource);
+                String path = request.getServletContext().getRealPath("/");
+                byte[] content = vendorService.generatePdf(path, xmlStreamSource);
                 response.setContentType("application/pdf");
                 response.setContentLength(content.length);
                 response.getOutputStream().write(content);
@@ -251,7 +263,7 @@ public class PageRouter {
 
                 String xmlString = jaxbUtils.marshall(report);
                 StreamSource xmlStreamSource = new StreamSource(new StringReader(xmlString));
-                byte[] content = vendorService.generatePdf(xmlStreamSource);
+                byte[] content = vendorService.generatePdf("", xmlStreamSource);
                 response.setContentType("application/pdf");
                 response.setContentLength(content.length);
                 response.getOutputStream().write(content);

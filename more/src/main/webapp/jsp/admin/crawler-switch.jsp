@@ -28,6 +28,7 @@
         <jsp:include page="../fragments/header.jsp"/>
 
         <c:set var="currentUser" value="${sessionScope.USER}"/>
+
         <div class="container text-center sorry-message">
             <c:if test="${currentUser.role == 0}">
                 <h1 class="message">Khởi động bộ thu thập dữ liệu</h1>

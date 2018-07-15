@@ -8,7 +8,7 @@
     margin-bottom: 10px;
     border: 5px solid #fff;
     border-radius: 2%;
-    margin-left: 10px; 
+    margin-left: 10px;
 }
 
 #left_col {
@@ -65,7 +65,8 @@ h3.category {
     text-align: center;
 }
 
-.buttons-group > button {
+.buttons-group > a > button {
+    cursor: pointer;
     text-align: center;
     margin: 3% 3%;
     width: 50%;
@@ -108,7 +109,7 @@ h3.category {
         font-size: 1.8em;
     }
 
-    .buttons-group > button {
+    .buttons-group > a > button {
         width: 25%;
         border-radius: 10px;
     }
@@ -141,7 +142,7 @@ h3.category {
         text-align: center
     }
 
-    .buttons-group > button {
+    .buttons-group > a > button {
         width: 30%;
         font-size: 1.0em;
     }
@@ -149,7 +150,7 @@ h3.category {
 
 /*For viewport >= 1366px */
 @media screen and (min-width: 1365px) {
-    #left_col> .item-box img {
+    #left_col > .item-box img {
         margin: 15% 0% 8% 3.5%;
         width: 320px;
         height: 480px;
@@ -165,12 +166,13 @@ h3.category {
     }
 
     h1.title {
-        font-size: 2.5em;
+        font-size: 2.0em;
+        text-transform: uppercase;
     }
 
     h2.year {
         padding: 1% 0%;
-        font-size: 1.5em;
+        font-size: 2.0em;
     }
 
     h3.category {
@@ -187,8 +189,6 @@ h3.category {
 /* End Responsive */
 /***************************************/
 
-
-
 /***************************************/
 /* Star Rating */
 /***************************************/
@@ -204,20 +204,22 @@ h3.category {
 
 .star-rating:hover {
     direction: rtl;
+    cursor: pointer;
 }
 
-.star-rating:hover>.checked {
+.star-rating:hover > .checked {
     color: black;
 }
+
 .star-rating > span:hover:before,
 .star-rating > span:hover ~ span:before {
     content: "\f005";
     color: #fdd504;
 }
+
 /***************************************/
 /* End Star Rating */
 /***************************************/
-
 
 /***************************************/
 /* Help box */
@@ -226,11 +228,10 @@ h3.category {
     font-size: 1.0em;
     margin: 0 5% 5% 0;
 }
+
 /***************************************/
 /* End Help box */
 /***************************************/
-
-
 
 /***************************************/
 /* Rate Number */
@@ -243,6 +244,7 @@ h3.category {
 .rate-no > span {
     color: #fdd504;
 }
+
 /***************************************/
 /* End Rate Number */
 /***************************************/
@@ -269,7 +271,7 @@ h3.category {
     padding: 5%;
     padding-top: 0;
     padding-bottom: 3%;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 1px solid rgba(0, 0, 0, .125);
     border-radius: .25rem;
     margin-top: 2%;
 }

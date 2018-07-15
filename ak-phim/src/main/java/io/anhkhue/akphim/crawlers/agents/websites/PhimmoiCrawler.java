@@ -40,7 +40,7 @@ public class PhimmoiCrawler extends WebsiteCrawler {
     private PageProvider<XMLStreamReader> pageProvider = new PageStreamReaderProvider(sourceReader, stAXParser);
 
     @Override
-    void crawlMoviesFromWebsite(int type, Collection<Movie> movieSet) {
+    void crawlMoviesFromWebsite(int type) {
         switch (type) {
             case NEW_LIST:
                 crawlNewMovies();
@@ -224,7 +224,7 @@ public class PhimmoiCrawler extends WebsiteCrawler {
                 XMLStreamReader pageStreamReader = pageProvider.getPage(sourceName,
                                                                         NEW_DETAIL,
                                                                         links.get(0).getUrl());
-                    while (pageStreamReader.hasNext()) {
+                while (pageStreamReader.hasNext()) {
                     int cursor = pageStreamReader.next();
                     if (cursor == XMLStreamConstants.START_ELEMENT) {
                         StartElement element = stAXParser.getXMLEvent(pageStreamReader).asStartElement();
@@ -249,9 +249,13 @@ public class PhimmoiCrawler extends WebsiteCrawler {
                             if (sClass.contains("dd-director")) {
                                 pageStreamReader.nextTag(); // to <a>
                                 pageStreamReader.next(); // value
-                                String director = stAXParser.getXMLEvent(pageStreamReader)
-                                                            .asCharacters().getData();
-                                if (director.equals("Đang cập nhật")) {
+                                String director = null;
+                                cursor = pageStreamReader.getEventType();
+                                if (cursor == XMLStreamConstants.CHARACTERS) {
+                                    director = stAXParser.getXMLEvent(pageStreamReader)
+                                                         .asCharacters().getData();
+                                }
+                                if (director == null || director.equals("Đang cập nhật")) {
                                     movieIterator.remove();
                                     continue;
                                 } else {

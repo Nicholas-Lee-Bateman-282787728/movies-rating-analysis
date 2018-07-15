@@ -9,34 +9,41 @@
     </xsl:template>
 
     <xsl:template match="ns:vendors">
-        <table id="table-vendor" class="table vendors">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col">Tên khách hàng</th>
-                    <th scope="col">Số điện thoại</th>
-                    <th scope="col">Email</th>
-                </tr>
-            </thead>
-            <tbody id="vendor-table-body">
+
+        <div class="table">
+            <div class="table-header">
+                <div class="table-header-item">
+                    No.
+                </div>
+                <div class="table-header-item">
+                    Tên khách hàng
+                </div>
+                <div class="table-header-item">
+                    Số điện thoại
+                </div>
+                <div class="table-header-item">
+                    Email
+                </div>
+            </div>
+            <div id="table-vendor" class="table-body">
                 <xsl:for-each select="ns:vendor">
-                    <tr>
-                        <th scope="row">
+                    <div class="table-body-row">
+                        <div class="table-body-item">
                             <xsl:value-of select="position()"/>
-                        </th>
-                        <td>
+                        </div>
+                        <div class="table-body-item">
                             <xsl:value-of select="ns:name"/>
-                        </td>
-                        <td>
+                        </div>
+                        <div class="table-body-item">
                             <xsl:value-of select="ns:tel"/>
-                        </td>
-                        <td>
+                        </div>
+                        <div class="table-body-item">
                             <xsl:value-of select="ns:email"/>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
                 </xsl:for-each>
-            </tbody>
-        </table>
+            </div>
+        </div>
 
     </xsl:template>
 

@@ -2,7 +2,7 @@
                 xmlns:ns="http://anhkhue.io/schema/report">
 
     <xsl:output method="xml" encoding="UTF-8"/>
-    <xsl:param name="pathFile" select="''"/>
+    <xsl:param name="pathFile"/>
 
     <xsl:template match="/">
         <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">

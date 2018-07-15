@@ -65,7 +65,8 @@ h3.category {
     text-align: center;
 }
 
-.buttons-group > button {
+.buttons-group > a > button {
+    cursor: pointer;
     text-align: center;
     margin: 3% 3%;
     width: 50%;
@@ -141,7 +142,7 @@ h3.category {
         text-align: center
     }
 
-    .buttons-group > button {
+    .buttons-group > a > button {
         width: 30%;
         font-size: 1.0em;
     }

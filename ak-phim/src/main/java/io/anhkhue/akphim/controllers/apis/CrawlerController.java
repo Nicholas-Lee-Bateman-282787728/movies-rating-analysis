@@ -23,7 +23,7 @@ public class CrawlerController {
         if (CrawlService.isCrawling) {
             return ResponseEntity.status(HttpStatus.OK).body("Hệ thống đang thu thập dữ liệu");
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body("Đã tạm ngưng việc thu thập dữ liệu<br/>");
+            return ResponseEntity.status(HttpStatus.OK).body("Đã tạm ngưng việc thu thập dữ liệu");
         }
     }
 }

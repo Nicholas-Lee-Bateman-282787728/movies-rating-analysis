@@ -30,6 +30,11 @@ html, body {
     color: #30ab32;
 }
 
+.header-title > a {
+    text-decoration: none;
+    color: #30ab32;
+}
+
 .header-username {
     display: flex;
     justify-content: flex-end;
@@ -113,6 +118,7 @@ html, body {
     grid-auto-rows: 40px;
     transform: translateX(40%);
     row-gap: 1%;
+    margin-top: 15%;
 }
 
 .adduser-form input {
@@ -122,11 +128,13 @@ html, body {
 }
 
 .adduser-form button {
+    cursor: pointer;
     transform: translateY(50%);
     color: white;
-    background-color: #13b604;
+    background-color: #28a745;
     font-size: 1.1rem;
     border-radius: 5px;
+    border: none;
 }
 
 .footer {
@@ -165,4 +173,17 @@ html, body {
     align-content: center;
     justify-items: center;
     font-size: 2rem;
+}
+
+#inform {
+    transform: translateX(40%);
+    margin-top: 5%;
+}
+
+.alert {
+    text-align: center;
+}
+
+.footer {
+    margin-top: 4%;
 }

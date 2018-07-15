@@ -1,5 +1,6 @@
 package io.anhkhue.akphim.services;
 
+import io.anhkhue.akphim.models.constants.RoleConstants;
 import io.anhkhue.akphim.models.dto.Account;
 import io.anhkhue.akphim.repositories.AccountRepository;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,9 @@ public class AccountService {
             return USERNAME_EXISTED;
         } else {
             try {
+                if (account.getRole() != RoleConstants.VENDOR) {
+                    account.setRole(RoleConstants.USER);
+                }
                 repository.save(account);
                 return CREATED;
             } catch (Exception e) {

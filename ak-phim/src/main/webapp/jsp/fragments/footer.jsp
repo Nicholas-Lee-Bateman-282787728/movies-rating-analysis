@@ -8,9 +8,15 @@
                 <span>&copy; AK Phim 2018. All Rights Reserved.</span>
             </div>
             <div class="footer-item contacts">
-                <i class="icon ion-logo-facebook"></i>
-                <i class="icon ion-logo-twitter"></i>
-                <i class="icon ion-logo-instagram"></i>
+                <a href="#">
+                    <i class="icon ion-logo-facebook"></i>
+                </a>
+                <a href="#">
+                    <i class="icon ion-logo-twitter"></i>
+                </a>
+                <a href="#">
+                    <i class="icon ion-logo-instagram"></i>
+                </a>
             </div>
         </div>
     </body>

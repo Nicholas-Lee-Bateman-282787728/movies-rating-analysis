@@ -64,24 +64,6 @@
         <script src="/js/more/Pagination.js" type="text/javascript"></script>
 
         <script type="text/javascript">
-            // self executing function
-            /*(function () {
-                if (totalPages !== 0) {
-                    var pagination = new Pagination(currentPage, 'search', searchValue);
-
-                    pagination.createPagination('pagination');
-                    var movieAccessor = new MovieAccessor('search', currentPage, moviePerPage);
-
-                    var moviePresenter = new MoviePresenter('movies', movieAccessor, searchValue);
-                    topSearchMovies(moviePerPage * 10, moviePresenter, searchValue);
-                } else {
-                    var showSection = document.getElementById('movies');
-                    var inform = document.createElement('h4');
-                    inform.innerHTML = 'Không tìm thấy kết quả nào';
-                    showSection.appendChild(inform);
-                }
-            })();*/
-
             document.onreadystatechange = function () {
                 if (totalPages !== 0) {
                     var pagination = new Pagination(currentPage, 'search', searchValue);

@@ -118,11 +118,15 @@ public class MovieService {
     }
 
     public Page<Movie> searchMoviesByTitle(int page, int moviePerPage, String searchValue) {
-        searchValue = "%" + searchValue + "%";
         int actualPage = page - 1;
         Pageable pageable = PageRequest.of(actualPage, moviePerPage);
 
-        return movieRepository.findByTitleLike(pageable, searchValue);
+        if (searchValue.equals("")) {
+            return movieRepository.findAll(pageable);
+        } else {
+            searchValue = "%" + searchValue + "%";
+            return movieRepository.findByTitleLike(pageable, searchValue);
+        }
     }
 
     public Integer save(Movie movie) {

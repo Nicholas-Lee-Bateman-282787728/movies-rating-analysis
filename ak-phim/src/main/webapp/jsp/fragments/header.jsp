@@ -26,11 +26,13 @@
                 <c:if test="${empty user}">
                     <div id="account-tool">
                         <a href="/dang-nhap">
-                            <span>Sign In</span>
+                            <span>
+                                Đăng nhập
+                            </span>
                         </a>
                         <a href="/dang-ky" style="cursor: pointer">
                             <button>
-                                Sign Up
+                                Đăng ký
                             </button>
                         </a>
                     </div>

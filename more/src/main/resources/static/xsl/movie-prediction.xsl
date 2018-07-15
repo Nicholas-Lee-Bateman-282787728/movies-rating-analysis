@@ -22,6 +22,7 @@
                               line-height="24pt"
                               space-after.optimum="15pt" text-align="left"
                               padding-top="0pt">
+                        <xsl:value-of select="concat($pathFile, //ns:vendor/ns:image)"/>
                         <fo:external-graphic content-height="scale-to-fit"
                                              height="1.10in"
                                              content-width="1.10in"

@@ -22,11 +22,11 @@ public abstract class VendorCrawler implements Crawler {
     }
 
     private void crawlShowingMovies() {
-        crawlMoviesFromVendor(NEW_LIST, comingMovies);
+        crawlMoviesFromVendor(NEW_LIST);
     }
 
     private void crawlComingMovies() {
-        crawlMoviesFromVendor(COMING_LIST, showingMovies);
+        crawlMoviesFromVendor(COMING_LIST);
     }
 
     @Override
@@ -35,5 +35,5 @@ public abstract class VendorCrawler implements Crawler {
         CrawledPool.addAll(comingMovies);
     }
 
-    abstract void crawlMoviesFromVendor(int type, Collection<Movie> movieSet);
+    abstract void crawlMoviesFromVendor(int type);
 }

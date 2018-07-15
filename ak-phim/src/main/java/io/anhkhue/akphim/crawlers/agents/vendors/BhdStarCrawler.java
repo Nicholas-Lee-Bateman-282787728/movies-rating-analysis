@@ -35,7 +35,7 @@ public class BhdStarCrawler extends VendorCrawler {
     private XPath xPath = domParser.createXPath();
 
     @Override
-    protected void crawlMoviesFromVendor(int type, Collection<Movie> movieSet) {
+    protected void crawlMoviesFromVendor(int type) {
         try {
             Document pageDom = pageProvider.getPage(sourceName, type, null);
 
@@ -46,8 +46,6 @@ public class BhdStarCrawler extends VendorCrawler {
             if (movieItems != null) {
                 for (int i = 0; i < movieItems.getLength(); i++) {
                     Node movieItem = movieItems.item(i);
-
-                    Category category = new Category();
 
                     // Return 2 <a>
                     String movieInfoXPath = "a[contains(@href, 'https://www.bhdstar.vn/movies/')]";

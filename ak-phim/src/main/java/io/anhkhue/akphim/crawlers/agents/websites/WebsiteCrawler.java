@@ -21,7 +21,7 @@ public abstract class WebsiteCrawler implements Crawler {
     }
 
     private void crawlNewMovies() {
-        crawlMoviesFromWebsite(NEW_LIST, movies);
+        crawlMoviesFromWebsite(NEW_LIST);
     }
 
     @Override
@@ -30,8 +30,8 @@ public abstract class WebsiteCrawler implements Crawler {
     }
 
     private void crawlMoviesWithPagination() {
-        crawlMoviesFromWebsite(PAGINATION_LIST, movies);
+        crawlMoviesFromWebsite(PAGINATION_LIST);
     }
 
-    abstract void crawlMoviesFromWebsite(int type, Collection<Movie> movieSet);
+    abstract void crawlMoviesFromWebsite(int type);
 }

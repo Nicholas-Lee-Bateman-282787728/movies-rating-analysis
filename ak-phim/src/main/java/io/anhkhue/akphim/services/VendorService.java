@@ -1,6 +1,7 @@
 package io.anhkhue.akphim.services;
 
 import io.anhkhue.akphim.mining.cache.VendorReportCache;
+import io.anhkhue.akphim.models.constants.RoleConstants;
 import io.anhkhue.akphim.models.custom.VendorWrapper;
 import io.anhkhue.akphim.models.dto.Account;
 import io.anhkhue.akphim.models.dto.Movie;
@@ -37,6 +38,7 @@ public class VendorService {
 
     private String XSL_FO_SOURCES_PATH = "static/xsl/movie-prediction.xsl";
     private String FOP_CONFIG_PATH = "static/xsl/fop.xconf";
+    private String FOP_IMAGES_PATH = "http://localhost:8080/";
 
     private final VendorRepository vendorRepository;
 
@@ -71,7 +73,7 @@ public class VendorService {
                                  .password(vendorWrapper.getPassword())
                                  .firstName(firstName)
                                  .lastName(lastName)
-                                 .role(2)
+                                 .role(RoleConstants.VENDOR)
                                  .build();
 
         Vendor vendor = Vendor.builder()
@@ -93,7 +95,7 @@ public class VendorService {
         return status;
     }
 
-    public byte[] generatePdf(StreamSource streamSource) throws SAXException, TransformerException, IOException {
+    public byte[] generatePdf(String path, StreamSource streamSource) throws SAXException, TransformerException, IOException {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             File xsltFile = new ClassPathResource(XSL_FO_SOURCES_PATH).getFile();
 
@@ -122,12 +124,14 @@ public class VendorService {
 
         String reportKey = "coming-" + reportDate;
 
-        Report report = null;
+        Report report;
 
         report = getReportFromCache(vendorId, reportKey);
 
         if (report == null) {
             Vendor vendor = this.findById(vendorId);
+            String vendorImage = vendor.getImage();
+            vendor.setImage(FOP_IMAGES_PATH + vendorImage);
             List<Movie> movieList = miningService.getRankedPredictionForComingMovies(vendor.getName());
 
             List<io.anhkhue.akphim.models.mining.report.Movie> reportMovies =
@@ -150,7 +154,7 @@ public class VendorService {
                            .movies(movies)
                            .vendor(vendor)
                            .date(reportDate)
-                           .logo("images/Logo_K.png")
+                           .logo(FOP_IMAGES_PATH + "images/Logo_K.png")
                            .type("sắp chiếu")
                            .build();
 
@@ -174,6 +178,8 @@ public class VendorService {
 
         if (report == null) {
             Vendor vendor = this.findById(vendorId);
+            String vendorImage = vendor.getImage();
+            vendor.setImage(FOP_IMAGES_PATH + vendorImage);
             List<Movie> movieList = miningService.getRankingForShowingMovies(vendor.getName());
 
             List<io.anhkhue.akphim.models.mining.report.Movie> reportMovies =
@@ -195,7 +201,7 @@ public class VendorService {
                            .movies(movies)
                            .vendor(vendor)
                            .date(reportDate)
-                           .logo("images/Logo_K.png")
+                           .logo(FOP_IMAGES_PATH + "images/Logo_K.png")
                            .type("đang chiếu")
                            .build();
 
